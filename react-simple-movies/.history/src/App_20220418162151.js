@@ -48,7 +48,7 @@ function App() {
             />
             <h3 className="text-xl font-bold mb-5">Spiderman: Homecoming</h3>
           </div>
-          <flex className="items-center justify-between text-sm text-opacity-50">
+          <flex className="items-center justify-between">
             <span>2017</span>
             <span>7.4</span>
           </flex>

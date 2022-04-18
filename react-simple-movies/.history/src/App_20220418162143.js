@@ -46,9 +46,11 @@ function App() {
               alt=""
               className="w-full h-[250px] object-cover rounded-lg mb-5"
             />
-            <h3 className="text-xl font-bold mb-5">Spiderman: Homecoming</h3>
+            <h3 className="text-white text-xl font-bold mb-5">
+              Spiderman: Homecoming
+            </h3>
           </div>
-          <flex className="items-center justify-between text-sm text-opacity-50">
+          <flex className="items-center justify-between">
             <span>2017</span>
             <span>7.4</span>
           </flex>

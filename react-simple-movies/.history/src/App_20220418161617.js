@@ -40,18 +40,13 @@ function App() {
           Now playing
         </h2>
         <div className="movie-list grid grid-cols-4 gap-10 ">
-          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
+          <div className="movie-card rounded-lg p-3 bg-slate-800">
             <img
               src="https://www.themoviedb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
               alt=""
-              className="w-full h-[250px] object-cover rounded-lg mb-5"
+              className="w-full h-full object-cover rounded-lg"
             />
-            <h3 className="text-xl font-bold mb-5">Spiderman: Homecoming</h3>
           </div>
-          <flex className="items-center justify-between text-sm text-opacity-50">
-            <span>2017</span>
-            <span>7.4</span>
-          </flex>
         </div>
       </section>
     </Fragment>
