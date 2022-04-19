@@ -4,8 +4,6 @@ import "swiper/css";
 import Banner from "./components/banner/Banner";
 import Main from "./components/layout/Main";
 import HomePage from "./pages/HomePage";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
-import MoviePage from "./pages/MoviePage";
 
 function App() {
   return (
@@ -21,11 +19,7 @@ function App() {
               </Fragment>
             }
           ></Route>
-          <Route path="/movies" element={<MoviePage></MoviePage>}></Route>
-          <Route
-            path="/movie/:movieId"
-            element={<MovieDetailsPage></MovieDetailsPage>}
-          ></Route>
+          <Route path="/movies"></Route>
         </Route>
       </Routes>
     </Fragment>
