@@ -32,7 +32,7 @@ const MovieDetailsPage = () => {
           alt=""
         />
       </div>
-      <h1 className="mb-10 text-4xl font-bold text-center">{title}</h1>
+      <h1 className="mb-10 text-3xl font-bold text-center">{title}</h1>
       {genres.length > 0 && (
         <div className="flex items-center justify-center mb-10 gap-x-5">
           {genres.map((item) => (
@@ -49,7 +49,6 @@ const MovieDetailsPage = () => {
         {overview}
       </p>
       <MovieCredits></MovieCredits>
-      <MovieVideos></MovieVideos>
     </div>
   );
 };
@@ -64,7 +63,7 @@ const MovieCredits = () => {
 
   return (
     <Fragment>
-      <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
+      <h2 className="mb-10 text-2xl text-center ">Casts</h2>;
       <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 4).map((item) => (
           <div key={item.key} className="card-items">
@@ -73,21 +72,11 @@ const MovieCredits = () => {
               alt=""
               className="w-full h-[350px] object-cover rounded-lg"
             />
-            <h3 className="text-xl font-medium">{item.name}</h3>
           </div>
         ))}
       </div>
     </Fragment>
   );
-};
-
-const MovieVideos = () => {
-  const { movieId } = useParams();
-  const api = `${apiUrl}/${movieId}/videos?api_key=${apiKey}`;
-  const { data, error } = useSWR(api, fetcher);
-  console.log(data);
-  if (!data) return null;
-  return <div>Videos</div>;
 };
 
 export default MovieDetailsPage;

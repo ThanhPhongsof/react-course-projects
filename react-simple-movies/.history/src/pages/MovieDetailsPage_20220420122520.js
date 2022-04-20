@@ -49,7 +49,6 @@ const MovieDetailsPage = () => {
         {overview}
       </p>
       <MovieCredits></MovieCredits>
-      <MovieVideos></MovieVideos>
     </div>
   );
 };
@@ -85,8 +84,8 @@ const MovieVideos = () => {
   const { movieId } = useParams();
   const api = `${apiUrl}/${movieId}/videos?api_key=${apiKey}`;
   const { data, error } = useSWR(api, fetcher);
-  console.log(data);
   if (!data) return null;
+  console.log(data);
   return <div>Videos</div>;
 };
 

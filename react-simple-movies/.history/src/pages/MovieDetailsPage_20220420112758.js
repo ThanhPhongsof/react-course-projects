@@ -9,10 +9,10 @@ const MovieDetailsPage = () => {
 
   const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
-  const { backdrop_path, poster_path, title, genres, overview } = data;
+  const { backdrop_path, poster_path, title, genres } = data;
 
   return (
-    <div className="py-10">
+    <Fragment>
       <div className="w-full h-[600px] relative">
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div
@@ -32,7 +32,7 @@ const MovieDetailsPage = () => {
           alt=""
         />
       </div>
-      <h1 className="mb-10 text-4xl font-bold text-center">{title}</h1>
+      <h1 className="mb-10 text-3xl font-bold text-center">{title}</h1>
       {genres.length > 0 && (
         <div className="flex items-center justify-center mb-10 gap-x-5">
           {genres.map((item) => (
@@ -45,49 +45,8 @@ const MovieDetailsPage = () => {
           ))}
         </div>
       )}
-      <p className="text-center  leading-relaxed max-w-[600px] mx-auto mb-10">
-        {overview}
-      </p>
-      <MovieCredits></MovieCredits>
-      <MovieVideos></MovieVideos>
-    </div>
-  );
-};
-
-const MovieCredits = () => {
-  const { movieId } = useParams();
-  const api = `${apiUrl}/${movieId}/credits?api_key=${apiKey}`;
-  const { data, error } = useSWR(api, fetcher);
-  if (!data) return null;
-  const { cast } = data;
-  if (!cast || cast.length <= 0) return null;
-
-  return (
-    <Fragment>
-      <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
-      <div className="grid grid-cols-4 gap-5">
-        {cast.slice(0, 4).map((item) => (
-          <div key={item.key} className="card-items">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
-              alt=""
-              className="w-full h-[350px] object-cover rounded-lg"
-            />
-            <h3 className="text-xl font-medium">{item.name}</h3>
-          </div>
-        ))}
-      </div>
     </Fragment>
   );
-};
-
-const MovieVideos = () => {
-  const { movieId } = useParams();
-  const api = `${apiUrl}/${movieId}/videos?api_key=${apiKey}`;
-  const { data, error } = useSWR(api, fetcher);
-  console.log(data);
-  if (!data) return null;
-  return <div>Videos</div>;
 };
 
 export default MovieDetailsPage;
