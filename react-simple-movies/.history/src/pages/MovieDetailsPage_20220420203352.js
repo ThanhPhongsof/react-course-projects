@@ -64,6 +64,7 @@ const MovieCredits = () => {
   if (!data) return null;
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
+  console.log(cast);
   return (
     <Fragment>
       <h2 className="mb-10 text-3xl text-center ">Casts</h2>;

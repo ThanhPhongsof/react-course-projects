@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import MovieCard from "../components/movies/MovieCard";
 import { apiKey, apiUrl, fetcher } from "../config";
 
 const MovieDetailsPage = () => {
@@ -52,7 +50,6 @@ const MovieDetailsPage = () => {
       </p>
       <MovieCredits></MovieCredits>
       <MovieVideos></MovieVideos>
-      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
@@ -64,12 +61,13 @@ const MovieCredits = () => {
   if (!data) return null;
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
+
   return (
     <Fragment>
       <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
       <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 4).map((item) => (
-          <div key={item.id} className="card-items">
+          <div key={item.key} className="card-items">
             <img
               src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
               alt=""
@@ -89,56 +87,22 @@ const MovieVideos = () => {
   const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
   const { results } = data;
-  if (!results || results.length <= 0) return null;
+  if (!results) return null;
   return (
     <div className="py-10">
-      <div className="flex flex-col gap-10">
-        {results.slice(0, 2).map((item) => (
-          <div className="" key={item.id}>
-            <h3 className="inline-block p-3 mb-5 text-xl font-medium text-white rounded-md bg-secondary">
-              {item.name}
-            </h3>
-            <div key={item.id} className="w-full aspect-video">
-              <iframe
-                width="864"
-                height="486"
-                src={`https://www.youtube.com/embed/${item.key}`}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="object-fill w-full h-full"
-              ></iframe>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const MovieSimilar = () => {
-  const { movieId } = useParams();
-  const api = `${apiUrl}/${movieId}/similar?api_key=${apiKey}`;
-  const { data, error } = useSWR(api, fetcher);
-  if (!data) return null;
-  const { results } = data;
-  if (!results || results.length <= 0) return null;
-  // console.log(results);
-  return (
-    <div className="py-10">
-      <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
-      <div className="movie-list">
-        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
-          {results?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <MovieCard data={item}></MovieCard>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {results.slice(0, 5).map((item) => (
+        <div key={item.id}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
+          veniam autem maiores unde deserunt vero modi impedit facere facilis,
+          tenetur sapiente alias nulla consequatur magni, qui dolore sint
+          molestias saepe.
+        </div>
+      ))}
     </div>
   );
 };
 
 export default MovieDetailsPage;
+{
+  /* <iframe width="1280" height="720" src="https://www.youtube.com/embed/iHSBEOwkn-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */
+}

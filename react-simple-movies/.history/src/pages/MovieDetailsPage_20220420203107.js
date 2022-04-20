@@ -50,7 +50,7 @@ const MovieDetailsPage = () => {
       <p className="text-center  leading-relaxed max-w-[600px] mx-auto mb-10">
         {overview}
       </p>
-      <MovieCredits></MovieCredits>
+      {/* <MovieCredits></MovieCredits> */}
       <MovieVideos></MovieVideos>
       <MovieSimilar></MovieSimilar>
     </div>
@@ -64,12 +64,13 @@ const MovieCredits = () => {
   if (!data) return null;
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
+
   return (
     <Fragment>
       <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
       <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 4).map((item) => (
-          <div key={item.id} className="card-items">
+          <div key={item.key} className="card-items">
             <img
               src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
               alt=""

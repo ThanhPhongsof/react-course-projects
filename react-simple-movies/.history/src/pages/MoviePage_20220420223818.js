@@ -66,7 +66,7 @@ const MoviePage = () => {
           ))}
       </div>
       <div className="flex items-center justify-center">
-        <span className="cursor-pointer">
+        <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6"
@@ -85,7 +85,10 @@ const MoviePage = () => {
         <span className="inline-block px-4 py-2 leading-none bg-white rounded cursor-pointer text-slate-900">
           1
         </span>
-        <span className="cursor-pointer">
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6"

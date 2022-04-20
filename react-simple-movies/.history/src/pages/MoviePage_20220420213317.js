@@ -11,13 +11,12 @@ const MoviePage = () => {
 
   const [filter, setFilter] = useState("");
   const [url, setUrl] = useState(api);
-  const filterDebounce = useDebounce(filter, 1000);
+  const filterDebounce = useDebounce(filter, 500);
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
 
   const { data, error } = useSWR(url, fetcher);
-  const loading = !data && !error;
 
   useEffect(() => {
     if (filterDebounce) {
@@ -54,53 +53,12 @@ const MoviePage = () => {
           </svg>
         </button>
       </div>
-      {loading && (
-        <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full border-primary border-t-transparent animate-spin"></div>
-      )}
       <div className="grid grid-cols-4 gap-10">
-        {!loading &&
-          movies?.map((item) => (
-            <NavLink key={item.id} to={`/movie/${item.id}`}>
-              <MovieCard data={item}></MovieCard>
-            </NavLink>
-          ))}
-      </div>
-      <div className="flex items-center justify-center">
-        <span className="cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </span>
-        <span className="inline-block px-4 py-2 leading-none bg-white rounded cursor-pointer text-slate-900">
-          1
-        </span>
-        <span className="cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </span>
+        {movies?.map((item) => (
+          <NavLink key={item.id} to={`/movie/${item.id}`}>
+            <MovieCard data={item}></MovieCard>
+          </NavLink>
+        ))}
       </div>
     </div>
   );

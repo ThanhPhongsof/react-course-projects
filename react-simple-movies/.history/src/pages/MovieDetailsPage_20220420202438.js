@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Swiper from "swiper";
+import { SwiperSlide } from "swiper/react";
 import useSWR from "swr";
 import MovieCard from "../components/movies/MovieCard";
 import { apiKey, apiUrl, fetcher } from "../config";
@@ -64,12 +65,13 @@ const MovieCredits = () => {
   if (!data) return null;
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
+
   return (
     <Fragment>
       <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
       <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 4).map((item) => (
-          <div key={item.id} className="card-items">
+          <div key={item.key} className="card-items">
             <img
               src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
               alt=""
@@ -119,23 +121,23 @@ const MovieVideos = () => {
 
 const MovieSimilar = () => {
   const { movieId } = useParams();
-  const api = `${apiUrl}/${movieId}/similar?api_key=${apiKey}`;
+  const api = `${apiUrl}/${movieId}/similars?api_key=${apiKey}`;
   const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
   const { results } = data;
   if (!results || results.length <= 0) return null;
-  // console.log(results);
+  console.log(results);
   return (
     <div className="py-10">
       <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
       <div className="movie-list">
-        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+        {/* <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
           {results?.map((item) => (
             <SwiperSlide key={item.id}>
               <MovieCard data={item}></MovieCard>
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper> */}
       </div>
     </div>
   );
