@@ -33,6 +33,8 @@ const MoviePage = () => {
   }, [filterDebounce, nextPage]);
 
   const movies = data?.results || [];
+  // const { page, total_pages } = data;
+  // console.log({ page, total_pages });
 
   useEffect(() => {
     if (!data || !data.total_results) return;
