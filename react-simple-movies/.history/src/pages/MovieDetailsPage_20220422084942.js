@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import MovieCard from "components/movies/MovieCard";
-import { fetcher, tmdbAPI, tmdbUrl } from "apiConfig/config";
+import MovieCard from "../components/movies/MovieCard";
+import { fetcher, tmdbAPI, tmdbUrl } from "../config";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -88,7 +88,7 @@ const MovieVideos = () => {
   const { movieId } = useParams();
 
   const { data, error } = useSWR(
-    tmdbAPI.getMovieMeta(movieId, "videos"),
+    tmdbAPI.getMovieMeta(movieId, "video"),
     fetcher
   );
   if (!data) return null;

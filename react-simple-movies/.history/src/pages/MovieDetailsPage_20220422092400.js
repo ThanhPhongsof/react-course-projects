@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
 import MovieCard from "components/movies/MovieCard";
-import { fetcher, tmdbAPI, tmdbUrl } from "apiConfig/config";
+import { fetcher, tmdbAPI, tmdbUrl } from "config";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();

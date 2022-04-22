@@ -2,11 +2,12 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import MovieCard from "components/movies/MovieCard";
-import { fetcher, tmdbAPI, tmdbUrl } from "apiConfig/config";
+import MovieCard from "../components/movies/MovieCard";
+import { fetcher, tmdbAPI } from "../config";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
+  const api = `${apiUrl}/${movieId}?api_key=${apiKey}`;
 
   const { data, error } = useSWR(tmdbAPI.getMovie(movieId), fetcher);
   if (!data) return null;
@@ -58,10 +59,8 @@ const MovieDetailsPage = () => {
 
 const MovieCredits = () => {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
-    tmdbAPI.getMovieMeta(movieId, "credits"),
-    fetcher
-  );
+  const api = `${apiUrl}/${movieId}/credits?api_key=${apiKey}`;
+  const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
@@ -72,7 +71,7 @@ const MovieCredits = () => {
         {cast.slice(0, 4).map((item) => (
           <div key={item.id} className="card-items">
             <img
-              src={`${tmdbUrl("original")}${item.profile_path}`}
+              src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
               alt=""
               className="w-full h-[350px] object-cover rounded-lg"
             />
@@ -86,11 +85,8 @@ const MovieCredits = () => {
 
 const MovieVideos = () => {
   const { movieId } = useParams();
-
-  const { data, error } = useSWR(
-    tmdbAPI.getMovieMeta(movieId, "videos"),
-    fetcher
-  );
+  const api = `${apiUrl}/${movieId}/videos?api_key=${apiKey}`;
+  const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
   const { results } = data;
   if (!results || results.length <= 0) return null;
@@ -123,15 +119,12 @@ const MovieVideos = () => {
 
 const MovieSimilar = () => {
   const { movieId } = useParams();
-
-  const { data, error } = useSWR(
-    tmdbAPI.getMovieMeta(movieId, "similar"),
-    fetcher
-  );
+  const api = `${apiUrl}/${movieId}/similar?api_key=${apiKey}`;
+  const { data, error } = useSWR(api, fetcher);
   if (!data) return null;
   const { results } = data;
   if (!results || results.length <= 0) return null;
-
+  // console.log(results);
   return (
     <div className="py-10">
       <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>

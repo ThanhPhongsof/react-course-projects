@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import useSWR from "swr";
-import MovieCard from "components/movies/MovieCard";
-import { apiKey, apiUrl, fetcher, tmdbAPI } from "apiConfig/config";
-import useDebounce from "hooks/useDebounce";
+import MovieCard from "../components/movies/MovieCard";
+import { apiKey, apiUrl, fetcher, tmdbAPI } from "../config";
+import useDebounce from "../hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 
 const itemsPerPage = 20;
@@ -14,7 +14,12 @@ const MoviePage = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [filter, setFilter] = useState("");
 
-  const [url, setUrl] = useState(tmdbAPI.getMovieList("popular", nextPage));
+  const apiEndpointMovie = `${tmdbAPI.getMovieList(
+    "popular"
+  )}&page=${nextPage}`;
+  const apiEndpointSearchMovie = tmdbAPI.getMovieListByKeyword();
+
+  const [url, setUrl] = useState(apiEndpointMovie);
   const filterDebounce = useDebounce(filter, 1000);
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
@@ -25,8 +30,10 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (filterDebounce) {
-      setUrl(tmdbAPI.getMovieListByKeyword(filterDebounce, nextPage));
-    } else setUrl(tmdbAPI.getMovieList("popular", nextPage));
+      setUrl(
+        `${apiEndpointSearchMovie}&query=${filterDebounce}&page=${nextPage}`
+      );
+    } else setUrl(apiEndpointMovie);
   }, [filterDebounce, nextPage]);
 
   const movies = data?.results || [];

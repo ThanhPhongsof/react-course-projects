@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import MovieCard from "components/movies/MovieCard";
+import MovieCard from "../components/movies/MovieCard";
 import { fetcher, tmdbAPI, tmdbUrl } from "apiConfig/config";
 
 const MovieDetailsPage = () => {

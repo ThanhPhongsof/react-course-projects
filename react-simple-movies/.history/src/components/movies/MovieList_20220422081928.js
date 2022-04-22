@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
 import MovieCard from "./MovieCard";
-import { fetcher, tmdbAPI } from "apiConfig/config";
+import { fetcher, tmdbAPI } from "../../config";
 
 //
 const MovieList = ({ type = "now_playing" }) => {

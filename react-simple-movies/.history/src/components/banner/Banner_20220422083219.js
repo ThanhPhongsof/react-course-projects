@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import { fetcher, tmdbAPI, tmdbUrl } from "apiConfig/config";
-import Button from "components/button/Button";
+import { fetcher, tmdbAPI, tmdbUrl } from "../../config";
+import Button from "../button/Button";
 
 const Banner = () => {
   const { data, error } = useSWR(tmdbAPI.getMovieList("upcoming"), fetcher);
@@ -29,7 +29,7 @@ const BannerItem = ({ data }) => {
     <div className="relative w-full h-full rounded-lg">
       <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
       <img
-        src={`${tmdbUrl("original")}${poster_path}`}
+        src={`${tmdbUrl}${poster_path}`}
         alt=""
         className="object-cover w-full h-full rounded-lg"
       />

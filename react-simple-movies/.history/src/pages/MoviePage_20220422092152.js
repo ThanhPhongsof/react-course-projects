@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import useSWR from "swr";
 import MovieCard from "components/movies/MovieCard";
-import { apiKey, apiUrl, fetcher, tmdbAPI } from "apiConfig/config";
-import useDebounce from "hooks/useDebounce";
+import { apiKey, apiUrl, fetcher, tmdbAPI } from "../config";
+import useDebounce from "../hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 
 const itemsPerPage = 20;
