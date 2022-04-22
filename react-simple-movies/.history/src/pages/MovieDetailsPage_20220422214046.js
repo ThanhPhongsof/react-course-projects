@@ -19,9 +19,10 @@ const MovieDetailsPage = () => {
         <div
           className="w-full h-full bg-no-repeat bg-cover"
           style={{
-            backgroundImage: backdrop_path
-              ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
-              : `url(${errorImage()})`,
+            backgroundImage:
+              backdrop_path != null
+                ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
+                : errorImage(),
           }}
         ></div>
       </div>

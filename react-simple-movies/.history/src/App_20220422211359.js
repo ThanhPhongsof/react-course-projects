@@ -34,13 +34,9 @@ function App() {
               path="/movie/:movieId"
               element={<MovieDetailsPage></MovieDetailsPage>}
             ></Route>
-            <Route
-              exact
-              path="*"
-              element={<PageNotFound></PageNotFound>}
-            ></Route>
           </Route>
         </Routes>
+        <Route exact path="*" component={PageNotFound}></Route>
       </Suspense>
     </Fragment>
   );

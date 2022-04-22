@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { errorImage, tmdbUrl } from "apiConfig/config";
+import { tmdbUrl } from "apiConfig/config";
 import Button from "components/button/Button";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
@@ -12,7 +12,9 @@ const MovieCard = ({ data }) => {
   return (
     <div className="flex flex-col h-full p-3 text-white rounded-lg select-none movie-card bg-slate-800">
       <img
-        src={poster_path ? `${tmdbUrl("w500")}${poster_path}` : errorImage()}
+        src={`${poster_path} ? ${tmdbUrl(
+          "w500"
+        )}${poster_path} : ${errorImage()}`}
         alt=""
         className="w-full h-[250px] object-cover rounded-lg mb-5"
       />

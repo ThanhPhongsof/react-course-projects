@@ -23,8 +23,8 @@ const Button = ({
       className={` px-6 py-3 mt-auto capitalize rounded-lg ${
         full ? "w-full" : ""
       } ${bgClassName} ${className}`}
+      disabled={disabled}
       onClick={onClick}
-      {...props}
     >
       {children}
     </button>

@@ -89,7 +89,7 @@ const MoviePage = () => {
             </NavLink>
           ))}
       </div>
-      <div className="mt-10">
+      {/* <div className="mt-10">
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
@@ -100,7 +100,7 @@ const MoviePage = () => {
           renderOnZeroPageCount={null}
           className="pagination"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

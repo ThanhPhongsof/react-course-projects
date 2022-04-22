@@ -8,7 +8,6 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const MoviePage = lazy(() => import("./pages/MoviePage"));
 const MoviePageLoadMore = lazy(() => import("./pages/MoviePageLoadMore"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 function App() {
   return (
@@ -34,11 +33,7 @@ function App() {
               path="/movie/:movieId"
               element={<MovieDetailsPage></MovieDetailsPage>}
             ></Route>
-            <Route
-              exact
-              path="*"
-              element={<PageNotFound></PageNotFound>}
-            ></Route>
+            <Route path="*" element={<>Page Noe Found</>}></Route>
           </Route>
         </Routes>
       </Suspense>

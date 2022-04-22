@@ -6,10 +6,11 @@ import { apiKey, apiUrl, fetcher, tmdbAPI } from "apiConfig/config";
 import useDebounce from "hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 import { v4 } from "uuid";
+import Button from "components/button/Button";
 
 const itemsPerPage = 20;
 
-const MoviePage = () => {
+const MoviePageLoadMore = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -89,75 +90,11 @@ const MoviePage = () => {
             </NavLink>
           ))}
       </div>
-      <div className="mt-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          className="pagination"
-        />
+      <div className="mt-10 text-center">
+        <Button>Load more</Button>
       </div>
     </div>
   );
 };
 
-{
-  /* <div className="flex items-center justify-center hidden mt-10 gap-x-5">
-<span className="cursor-pointer">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-6 h-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-    onClick={() =>
-      setNextPage((nextPage) =>
-        nextPage == 1 ? nextPage : nextPage - 1
-      )
-    }
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 19l-7-7 7-7"
-    />
-  </svg>
-</span>
-{new Array(pageCount).fill(0).map((item, index) => (
-  <span
-    className="inline-block px-4 py-2 leading-none bg-white rounded cursor-pointer text-slate-900"
-    onClick={() => setNextPage((nextPage) => nextPage + 1)}
-  >
-    {index + 1}
-  </span>
-))}
-<span className="cursor-pointer">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-6 h-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-    onClick={() =>
-      setNextPage((nextPage) =>
-        nextPage > pageCount ? nextPage : nextPage + 1
-      )
-    }
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 5l7 7-7 7"
-    />
-  </svg>
-</span>
-</div> */
-}
-
-export default MoviePage;
+export default MoviePageLoadMore;

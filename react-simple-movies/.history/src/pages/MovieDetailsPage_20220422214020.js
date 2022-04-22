@@ -21,7 +21,7 @@ const MovieDetailsPage = () => {
           style={{
             backgroundImage: backdrop_path
               ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
-              : `url(${errorImage()})`,
+              : errorImage(),
           }}
         ></div>
       </div>

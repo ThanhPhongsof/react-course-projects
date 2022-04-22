@@ -11,7 +11,7 @@ const MovieDetailsPage = () => {
   const { data, error } = useSWR(tmdbAPI.getMovie(movieId), fetcher);
   if (!data) return null;
   const { backdrop_path, poster_path, title, genres, overview } = data;
-  console.log(backdrop_path);
+
   return (
     <div className="py-10">
       <div className="w-full h-[600px] relative">
@@ -19,9 +19,8 @@ const MovieDetailsPage = () => {
         <div
           className="w-full h-full bg-no-repeat bg-cover"
           style={{
-            backgroundImage: backdrop_path
-              ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
-              : `url(${errorImage()})`,
+
+            backgroundImage: backdrop_path ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})` : errorImage()),
           }}
         ></div>
       </div>

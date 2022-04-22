@@ -7,7 +7,7 @@ const Button = ({
   full = false,
   type = "button",
   bgColor = "primary",
-  ...props
+  disabled = false,
 }) => {
   let bgClassName = "bg-primary";
   switch (bgColor) {
@@ -24,7 +24,6 @@ const Button = ({
         full ? "w-full" : ""
       } ${bgClassName} ${className}`}
       onClick={onClick}
-      {...props}
     >
       {children}
     </button>
