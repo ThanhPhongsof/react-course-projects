@@ -20,21 +20,11 @@ const MovieList = ({ type = "now_playing" }) => {
       {isLoading && (
         <>
           <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
           </Swiper>
         </>
       )}

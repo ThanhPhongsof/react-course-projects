@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
@@ -39,7 +39,7 @@ const MovieDetailsPage = () => {
           {genres.map((item) => (
             <span
               key={item.id}
-              className="px-4 py-2 text-white border rounded-lg border-primary "
+              className="px-4 py-2 text-white border rounded-lg border-primary text-primary"
             >
               {item.name}
             </span>
@@ -49,19 +49,19 @@ const MovieDetailsPage = () => {
       <p className="text-center  leading-relaxed max-w-[600px] mx-auto mb-10">
         {overview}
       </p>
-      <MovieMeta type="credits"></MovieMeta>
-      <MovieMeta type="videos"></MovieMeta>
-      <MovieMeta type="similar"></MovieMeta>
+      <MovieCredits></MovieCredits>
+      <MovieVideos></MovieVideos>
+      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
 
-const MovieMeta = ({ type = "credits" }) => {
+const MovieMeta = (type = "credits") => {
   const { movieId } = useParams();
   const { data, error } = useSWR(tmdbAPI.getMovieMeta(movieId, type), fetcher);
   if (!data) return null;
 
-  if (type == "credits") {
+  if ((type = "credits")) {
     const { cast } = data;
     if (!cast || cast.length <= 0) return null;
     return (
@@ -112,26 +112,100 @@ const MovieMeta = ({ type = "credits" }) => {
         </div>
       );
     } else {
-      return (
-        <div className="py-10">
-          <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
-          <div className="movie-list">
-            <Swiper
-              grabCursor={"true"}
-              spaceBetween={40}
-              slidesPerView={"auto"}
-            >
-              {results?.map((item) => (
-                <SwiperSlide key={item.id}>
-                  <MovieCard data={item}></MovieCard>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
-      );
     }
   }
+};
+
+const MovieCredits = () => {
+  const { movieId } = useParams();
+  const { data, error } = useSWR(
+    tmdbAPI.getMovieMeta(movieId, "credits"),
+    fetcher
+  );
+  if (!data) return null;
+  const { cast } = data;
+  if (!cast || cast.length <= 0) return null;
+  return (
+    <div className="py-10">
+      <h2 className="mb-10 text-3xl text-center ">Casts</h2>;
+      <div className="grid grid-cols-4 gap-5">
+        {cast.slice(0, 4).map((item) => (
+          <div key={item.id} className="card-items">
+            <img
+              src={`${tmdbUrl("original")}${item.profile_path}`}
+              alt=""
+              className="w-full h-[350px] object-cover rounded-lg"
+            />
+            <h3 className="text-xl font-medium">{item.name}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const MovieVideos = () => {
+  const { movieId } = useParams();
+
+  const { data, error } = useSWR(
+    tmdbAPI.getMovieMeta(movieId, "videos"),
+    fetcher
+  );
+  if (!data) return null;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+  return (
+    <div className="py-10">
+      <div className="flex flex-col gap-10">
+        {results.slice(0, 2).map((item) => (
+          <div className="" key={item.id}>
+            <h3 className="inline-block p-3 mb-5 text-xl font-medium text-white rounded-md bg-secondary">
+              {item.name}
+            </h3>
+            <div key={item.id} className="w-full aspect-video">
+              <iframe
+                width="864"
+                height="486"
+                src={`https://www.youtube.com/embed/${item.key}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="object-fill w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const MovieSimilar = () => {
+  const { movieId } = useParams();
+
+  const { data, error } = useSWR(
+    tmdbAPI.getMovieMeta(movieId, "similar"),
+    fetcher
+  );
+  if (!data) return null;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+
+  return (
+    <div className="py-10">
+      <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
+      <div className="movie-list">
+        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+          {results?.map((item) => (
+            <SwiperSlide key={item.id}>
+              <MovieCard data={item}></MovieCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
+  );
 };
 
 export default MovieDetailsPage;

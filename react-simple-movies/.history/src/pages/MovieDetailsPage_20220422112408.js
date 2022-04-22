@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
@@ -39,7 +39,7 @@ const MovieDetailsPage = () => {
           {genres.map((item) => (
             <span
               key={item.id}
-              className="px-4 py-2 text-white border rounded-lg border-primary "
+              className="px-4 py-2 text-white border rounded-lg border-primary text-primary"
             >
               {item.name}
             </span>
@@ -51,17 +51,17 @@ const MovieDetailsPage = () => {
       </p>
       <MovieMeta type="credits"></MovieMeta>
       <MovieMeta type="videos"></MovieMeta>
-      <MovieMeta type="similar"></MovieMeta>
+      <MovieMeta type="simalars"></MovieMeta>
     </div>
   );
 };
 
-const MovieMeta = ({ type = "credits" }) => {
+const MovieMeta = (type = "credits") => {
   const { movieId } = useParams();
   const { data, error } = useSWR(tmdbAPI.getMovieMeta(movieId, type), fetcher);
   if (!data) return null;
 
-  if (type == "credits") {
+  if ((type = "credits")) {
     const { cast } = data;
     if (!cast || cast.length <= 0) return null;
     return (

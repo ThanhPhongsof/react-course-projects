@@ -17,7 +17,7 @@ const MovieList = ({ type = "now_playing" }) => {
 
   return (
     <div className="movie-list">
-      {isLoading && (
+      {!isLoading && (
         <>
           <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
             <SwiperSlide>

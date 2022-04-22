@@ -17,36 +17,24 @@ const MovieList = ({ type = "now_playing" }) => {
 
   return (
     <div className="movie-list">
-      {isLoading && (
+      {!isLoading && (
         <>
           <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
+            <MovieCardSkeleton></MovieCardSkeleton>
           </Swiper>
         </>
       )}
-      {!isLoading && (
-        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
-          {movies?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <MovieCard data={item}></MovieCard>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
+      <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+        {movies?.map((item) => (
+          <SwiperSlide key={item.id}>
+            <MovieCard data={item}></MovieCard>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

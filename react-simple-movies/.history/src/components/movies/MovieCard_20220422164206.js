@@ -41,21 +41,26 @@ export const MovieCardSkeleton = () => {
       ></LoadingSkeleton>
       <div className="flex flex-col flex-1">
         <h3 className="mb-5 text-xl font-bold">
-          <LoadingSkeleton width="100%" height="20px"></LoadingSkeleton>
+        <LoadingSkeleton
+        width="100%"
+        height="20px"
+      ></LoadingSkeleton>
         </h3>
         <div className="flex items-center justify-between mb-10 text-sm opacity-50">
-          <span>
-            <LoadingSkeleton width="50px" height="10px"></LoadingSkeleton>
-          </span>
-          <span>
-            <LoadingSkeleton width="30px" height="10px"></LoadingSkeleton>
-          </span>
+          <span>        <LoadingSkeleton
+        width="50px"
+        height="10px"
+      ></LoadingSkeleton></span>
+        <div className="flex items-center justify-between mb-10 text-sm opacity-50">
+          <span>       <LoadingSkeleton
+        width="30px"
+        height="10px"
+      ></LoadingSkeleton></span>
         </div>
         <LoadingSkeleton
-          width="100%"
-          height="45px"
-          radius="6px"
-        ></LoadingSkeleton>
+        width="100%"
+        height="40px"
+      ></LoadingSkeleton><
       </div>
     </div>
   );

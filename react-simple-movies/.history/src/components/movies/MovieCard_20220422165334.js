@@ -51,11 +51,7 @@ export const MovieCardSkeleton = () => {
             <LoadingSkeleton width="30px" height="10px"></LoadingSkeleton>
           </span>
         </div>
-        <LoadingSkeleton
-          width="100%"
-          height="45px"
-          radius="6px"
-        ></LoadingSkeleton>
+        <LoadingSkeleton width="100%" height="45px"></LoadingSkeleton>
       </div>
     </div>
   );

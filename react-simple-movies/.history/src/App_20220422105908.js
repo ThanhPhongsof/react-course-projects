@@ -11,7 +11,7 @@ const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 function App() {
   return (
     <Fragment>
-      <Suspense fallback={<></>}>
+      <Suspense>
         <Routes>
           <Route element={<Main></Main>}>
             <Route
