@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { useForm } from "react-hook-form";
-import { IconEyeClose, IconEyeOpen } from "components/icon";
-import { Field } from "components/field";
-import { Button } from "components/button";
+import { IconEyeOpen } from "components/icon";
 
 const SignUpPageStyles = styled.div`
   min-height: 100vh;
@@ -19,6 +17,12 @@ const SignUpPageStyles = styled.div`
     font-weight: bold;
     font-size: 40px;
     margin-bottom: 60px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 20px;
   }
   .form {
     max-width: 600px;
@@ -38,52 +42,24 @@ const SignUpPage = () => {
     console.log(values);
   };
 
-  const [togglePassword, setTogglePassword] = useState(false);
-
   return (
     <SignUpPageStyles>
       <div className="container">
         <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
         <h1 className="heading">Monkey Blogging</h1>
         <form className="form" onSubmit={handleSubmit(handleSignUp)}>
-          <Field>
+          <div className="field">
             <Label htmlFor="fullname">Fullname</Label>
             <Input
               type="text"
               name="fullname"
               placeholder="Enter your fullname"
               control={control}
-            ></Input>
-          </Field>
-          <Field>
-            <Label htmlFor="email">Email address</Label>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Enter your email address"
-              control={control}
-            ></Input>
-          </Field>
-          <Field>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              type={togglePassword ? "text" : "password"}
-              name="password"
-              placeholder="Enter your password"
-              control={control}
+              hasIcon
             >
-              {togglePassword ? (
-                <IconEyeOpen
-                  onClick={() => setTogglePassword(false)}
-                ></IconEyeOpen>
-              ) : (
-                <IconEyeClose
-                  onClick={() => setTogglePassword(true)}
-                ></IconEyeClose>
-              )}
+              <IconEyeOpen className="icon-eye"></IconEyeOpen>
             </Input>
-          </Field>
-          <Button type="submit">Sign Up</Button>
+          </div>
         </form>
       </div>
     </SignUpPageStyles>

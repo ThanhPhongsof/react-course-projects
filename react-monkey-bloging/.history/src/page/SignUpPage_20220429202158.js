@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { useForm } from "react-hook-form";
-import { IconEyeClose, IconEyeOpen } from "components/icon";
+import { IconEyeOpen } from "components/icon";
 import { Field } from "components/field";
-import { Button } from "components/button";
 
 const SignUpPageStyles = styled.div`
   min-height: 100vh;
@@ -56,11 +55,11 @@ const SignUpPage = () => {
             ></Input>
           </Field>
           <Field>
-            <Label htmlFor="email">Email address</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               type="email"
               name="email"
-              placeholder="Enter your email address"
+              placeholder="Enter your email"
               control={control}
             ></Input>
           </Field>
@@ -72,18 +71,12 @@ const SignUpPage = () => {
               placeholder="Enter your password"
               control={control}
             >
-              {togglePassword ? (
-                <IconEyeOpen
-                  onClick={() => setTogglePassword(false)}
-                ></IconEyeOpen>
-              ) : (
-                <IconEyeClose
-                  onClick={() => setTogglePassword(true)}
-                ></IconEyeClose>
-              )}
+              <IconEyeOpen
+                className="input-icon"
+                onClick={() => setTogglePassword(true)}
+              ></IconEyeOpen>
             </Input>
           </Field>
-          <Button type="submit">Sign Up</Button>
         </form>
       </div>
     </SignUpPageStyles>

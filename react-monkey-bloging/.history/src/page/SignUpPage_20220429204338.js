@@ -39,6 +39,7 @@ const SignUpPage = () => {
   };
 
   const [togglePassword, setTogglePassword] = useState(false);
+  console.log(togglePassword);
 
   return (
     <SignUpPageStyles>
@@ -74,16 +75,18 @@ const SignUpPage = () => {
             >
               {togglePassword ? (
                 <IconEyeOpen
+                  className="input-icon"
                   onClick={() => setTogglePassword(false)}
                 ></IconEyeOpen>
               ) : (
                 <IconEyeClose
+                  className="input-icon"
                   onClick={() => setTogglePassword(true)}
                 ></IconEyeClose>
               )}
             </Input>
+            <Button>SignUp</Button>
           </Field>
-          <Button type="submit">Sign Up</Button>
         </form>
       </div>
     </SignUpPageStyles>

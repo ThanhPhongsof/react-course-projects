@@ -82,8 +82,8 @@ const SignUpPage = () => {
                 ></IconEyeClose>
               )}
             </Input>
+            <Button>SignUp</Button>
           </Field>
-          <Button type="submit">Sign Up</Button>
         </form>
       </div>
     </SignUpPageStyles>

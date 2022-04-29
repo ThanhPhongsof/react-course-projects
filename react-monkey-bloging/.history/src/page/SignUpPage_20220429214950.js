@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { IconEyeClose, IconEyeOpen } from "components/icon";
 import { Field } from "components/field";
 import { Button } from "components/button";
+import { LoadingSpinner } from "components/loading";
 
 const SignUpPageStyles = styled.div`
   min-height: 100vh;
@@ -83,7 +84,10 @@ const SignUpPage = () => {
               )}
             </Input>
           </Field>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" disabled>
+            {/* Sign Up */}
+            <LoadingSpinner></LoadingSpinner>
+          </Button>
         </form>
       </div>
     </SignUpPageStyles>

@@ -83,7 +83,7 @@ const SignUpPage = () => {
               )}
             </Input>
           </Field>
-          <Button type="submit">Sign Up</Button>
+          <Button>Sign Up</Button>
         </form>
       </div>
     </SignUpPageStyles>

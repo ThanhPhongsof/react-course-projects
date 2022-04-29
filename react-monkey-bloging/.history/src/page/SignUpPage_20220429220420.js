@@ -83,7 +83,9 @@ const SignUpPage = () => {
               )}
             </Input>
           </Field>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" isLoading>
+            Sign Up
+          </Button>
         </form>
       </div>
     </SignUpPageStyles>

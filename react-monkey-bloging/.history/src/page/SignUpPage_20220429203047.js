@@ -74,16 +74,18 @@ const SignUpPage = () => {
             >
               {togglePassword ? (
                 <IconEyeOpen
-                  onClick={() => setTogglePassword(false)}
+                  className="input-icon"
+                  onClick={() => setTogglePassword(true)}
                 ></IconEyeOpen>
               ) : (
                 <IconEyeClose
+                  className="input-icon"
                   onClick={() => setTogglePassword(true)}
                 ></IconEyeClose>
               )}
             </Input>
+            <Button>SignUp</Button>
           </Field>
-          <Button type="submit">Sign Up</Button>
         </form>
       </div>
     </SignUpPageStyles>
