@@ -1,11 +1,11 @@
-import { Route, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
 
 const App = () => {
   return (
     <div>
       <AuthProvider>
-        <Routes></Routes>
+        <Route>1</Route>
       </AuthProvider>
     </div>
   );
