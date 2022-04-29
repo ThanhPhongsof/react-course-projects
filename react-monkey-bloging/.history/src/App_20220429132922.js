@@ -7,7 +7,7 @@ const App = () => {
     <div>
       <AuthProvider>
         <Routes>
-          <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
+          <Route path="/signup" element={<SignUpPage></SignUpPage>}></Route>
         </Routes>
       </AuthProvider>
     </div>
