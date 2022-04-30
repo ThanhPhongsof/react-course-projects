@@ -60,6 +60,7 @@ const SignUpPage = () => {
   });
 
   const handleSignUp = async (values) => {
+    console.log(values);
     if (!isValid) return;
     try {
       const creditial = await createUserWithEmailAndPassword(

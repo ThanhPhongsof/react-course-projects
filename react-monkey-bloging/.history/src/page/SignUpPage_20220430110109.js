@@ -10,9 +10,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "firebase-app/firebase-config";
-import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { auth } from "firebase-app/firebase-config";
 
 const SignUpPageStyles = styled.div`
   min-height: 100vh;
@@ -46,8 +44,6 @@ const schema = yup.object({
 });
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
-
   const {
     control,
     handleSubmit,
@@ -60,28 +56,22 @@ const SignUpPage = () => {
   });
 
   const handleSignUp = async (values) => {
+    console.log(values);
     if (!isValid) return;
-    try {
-      const creditial = await createUserWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      await updateProfile(auth.currentUser, {
-        displayName: values.fullname,
-      });
-      const colRel = collection(db, "users");
-      await addDoc(colRel, {
-        id: creditial.user.uid,
-        fullname: values.fullname,
-        email: values.email,
-        password: values.password,
-      });
-      toast.success("Register successfully !");
-      navigate("/");
-    } catch (err) {
-      toast.error(err);
-    }
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    await updateProfile(auth.currentUser, {
+      displayName: values.fullname,
+    });
+    toast.success("Register successfully !");
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 5000);
+    // });
   };
 
   const [togglePassword, setTogglePassword] = useState(false);

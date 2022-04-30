@@ -60,28 +60,25 @@ const SignUpPage = () => {
   });
 
   const handleSignUp = async (values) => {
+    console.log(values);
     if (!isValid) return;
-    try {
-      const creditial = await createUserWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      await updateProfile(auth.currentUser, {
-        displayName: values.fullname,
-      });
-      const colRel = collection(db, "users");
-      await addDoc(colRel, {
-        id: creditial.user.uid,
-        fullname: values.fullname,
-        email: values.email,
-        password: values.password,
-      });
-      toast.success("Register successfully !");
-      navigate("/");
-    } catch (err) {
-      toast.error(err);
-    }
+    const creditial = await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    await updateProfile(auth.currentUser, {
+      displayName: values.fullname,
+    });
+    const colRel = collection(db, "users");
+    await addDoc(colRel, {
+      id: creditial.user.uid,
+      fullname: values.fullname,
+      email: values.email,
+      password: values.password,
+    });
+    toast.success("Register successfully !");
+    navigate("/");
   };
 
   const [togglePassword, setTogglePassword] = useState(false);

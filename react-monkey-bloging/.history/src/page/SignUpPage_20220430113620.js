@@ -61,8 +61,9 @@ const SignUpPage = () => {
 
   const handleSignUp = async (values) => {
     if (!isValid) return;
+
     try {
-      const creditial = await createUserWithEmailAndPassword(
+      const user = await createUserWithEmailAndPassword(
         auth,
         values.email,
         values.password
@@ -72,7 +73,7 @@ const SignUpPage = () => {
       });
       const colRel = collection(db, "users");
       await addDoc(colRel, {
-        id: creditial.user.uid,
+        // id: creditial.user.uid,
         fullname: values.fullname,
         email: values.email,
         password: values.password,
