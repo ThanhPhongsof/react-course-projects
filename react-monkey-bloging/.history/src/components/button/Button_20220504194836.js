@@ -16,12 +16,8 @@ const ButtonStyles = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) =>
-    props.kind === "secondary" &&
-    css`
-      background-color: white;
-      color: ${(props) => props.theme.primary};
-    `};
+  background-color: white;
+  color: ${(props) => props.theme.primary};
   ${(props) =>
     props.kind === "primary" &&
     css`
@@ -48,7 +44,6 @@ const ButtonStyles = styled.button`
 const Button = ({
   type = "button",
   onClick = () => {},
-  kind = "secondary",
   children,
   ...props
 }) => {
@@ -56,15 +51,15 @@ const Button = ({
   const child = !!isLoading ? <LoadingSpinner></LoadingSpinner> : children;
   if (to !== "" && typeof to == "string") {
     return (
-      <NavLink to={to} style={{ display: "inline-block" }}>
-        <ButtonStyles type={type} kind={kind} {...props}>
+      <NavLink to={to}>
+        <ButtonStyles type={type} {...props}>
           {child}
         </ButtonStyles>
       </NavLink>
     );
   }
   return (
-    <ButtonStyles type={type} onClick={onClick} kind={kind} {...props}>
+    <ButtonStyles type={type} onClick={onClick} {...props}>
       {child}
     </ButtonStyles>
   );
@@ -75,7 +70,6 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node,
-  kind: PropTypes.oneOf(["primary", "secondary"]),
 };
 
 export default Button;
