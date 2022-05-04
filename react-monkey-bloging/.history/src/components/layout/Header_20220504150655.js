@@ -21,6 +21,7 @@ const HeaderStyles = styled.header`
     margin-left: 40px;
     list-style: none;
     font-weight: 500;
+    margin-right: 20px;
   }
   .search {
     margin-left: auto;
@@ -32,7 +33,6 @@ const HeaderStyles = styled.header`
     display: flex;
     align-items: center;
     position: relative;
-    margin-right: 20px;
   }
   .search-input {
     flex: 1;
@@ -60,12 +60,6 @@ const menuLink = [
     title: "Contact",
   },
 ];
-
-const getLastName = (name) => {
-  if (!name) return "User";
-  const length = name.split(" ").length;
-  return name.split(" ")[length - 1];
-};
 
 const Header = () => {
   const { userInfo } = useAuth();
@@ -125,10 +119,8 @@ const Header = () => {
           </div>
           {userInfo ? (
             <div className="header-auth">
-              <span>Welcome back,</span>
-              <strong className="text-primary">
-                {getLastName(userInfo?.displayName)}
-              </strong>
+              <strong>Welcome back,</strong>
+              <span>{userInfo?.displayName}</span>
             </div>
           ) : (
             <Button

@@ -46,7 +46,7 @@ const Button = ({
   if (to !== "" && typeof to == "string") {
     return (
       <NavLink to={to}>
-        <ButtonStyles type={type} {...props}>
+        <ButtonStyles type={type} onClick={onClick} {...props}>
           {child}
         </ButtonStyles>
       </NavLink>

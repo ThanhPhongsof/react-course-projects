@@ -61,12 +61,6 @@ const menuLink = [
   },
 ];
 
-const getLastName = (name) => {
-  if (!name) return "User";
-  const length = name.split(" ").length;
-  return name.split(" ")[length - 1];
-};
-
 const Header = () => {
   const { userInfo } = useAuth();
   console.log(userInfo);
@@ -125,10 +119,8 @@ const Header = () => {
           </div>
           {userInfo ? (
             <div className="header-auth">
-              <span>Welcome back,</span>
-              <strong className="text-primary">
-                {getLastName(userInfo?.displayName)}
-              </strong>
+              <strong>Welcome back,</strong>
+              <span>{userInfo?.displayName}</span>
             </div>
           ) : (
             <Button

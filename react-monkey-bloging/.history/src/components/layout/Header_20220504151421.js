@@ -62,7 +62,7 @@ const menuLink = [
 ];
 
 const getLastName = (name) => {
-  if (!name) return "User";
+  if (!name) return "";
   const length = name.split(" ").length;
   return name.split(" ")[length - 1];
 };
