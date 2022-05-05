@@ -15,7 +15,7 @@ const PostItemStyles = styled.div`
       margin-bottom: 20px;
       display: block;
       width: 100%;
-      border-radius: 16px;
+      border-radius: 8px;
     }
     &-category {
       margin-bottom: 16px;

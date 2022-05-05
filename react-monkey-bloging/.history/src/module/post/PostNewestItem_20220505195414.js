@@ -23,7 +23,12 @@ const PostNewestItemStyles = styled.div`
       flex-shrink: 0;
       width: 180px;
       height: 130px;
-      border-radius: 12px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
     }
     &-category {
       margin-bottom: 8px;
@@ -40,8 +45,7 @@ const PostNewestItem = () => {
       <PostImage
         className="post-image"
         url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="pexels"
-        to="/"
+        alt=""
       ></PostImage>
       <div className="post-content">
         <PostCategory type="secondary">Kiến thức</PostCategory>

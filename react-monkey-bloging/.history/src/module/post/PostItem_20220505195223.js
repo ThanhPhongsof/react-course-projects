@@ -15,7 +15,6 @@ const PostItemStyles = styled.div`
       margin-bottom: 20px;
       display: block;
       width: 100%;
-      border-radius: 16px;
     }
     &-category {
       margin-bottom: 16px;
@@ -30,7 +29,7 @@ const PostItem = () => {
   return (
     <PostItemStyles>
       <PostImage
-        url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt="pexels"
       ></PostImage>
       <PostCategory>Kiến thức</PostCategory>

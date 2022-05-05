@@ -41,7 +41,6 @@ const PostNewestItem = () => {
         className="post-image"
         url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt="pexels"
-        to="/"
       ></PostImage>
       <div className="post-content">
         <PostCategory type="secondary">Kiến thức</PostCategory>
