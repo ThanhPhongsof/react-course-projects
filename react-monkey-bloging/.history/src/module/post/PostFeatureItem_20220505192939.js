@@ -42,6 +42,22 @@ const PostFeatureItemStyles = styled.div`
       align-items: center;
       margin-bottom: 16px;
     }
+    &-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-left: auto;
+    }
+    &-dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background-color: currentColor;
+      border-radius: 100rem;
+    }
   }
   @media screen and (min-width: 1024px) {
     height: 272px;
