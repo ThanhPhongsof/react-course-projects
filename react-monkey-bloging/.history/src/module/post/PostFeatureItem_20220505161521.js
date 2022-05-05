@@ -82,7 +82,7 @@ const PostFeatureItem = () => {
           </div>
         </div>
         <PostTitle size="big">
-          Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+          Hướng dẫn setup phòng cực chill dành cho người mới toàn tập s
         </PostTitle>
       </div>
     </PostFeatureItemStyles>

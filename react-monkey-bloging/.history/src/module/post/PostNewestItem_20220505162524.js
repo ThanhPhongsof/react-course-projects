@@ -48,6 +48,10 @@ const PostNewestItemStyles = styled.div`
       border-radius: 100rem;
     }
     &-title {
+      font-weight: bold;
+      line-height: 1.5;
+      display: block;
+      font-size: 16px;
       margin-bottom: 8px;
     }
   }

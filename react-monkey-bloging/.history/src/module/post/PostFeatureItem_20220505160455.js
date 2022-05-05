@@ -81,7 +81,7 @@ const PostFeatureItem = () => {
             <span className="post-author">Andiez Le</span>
           </div>
         </div>
-        <PostTitle size="big">
+        <PostTitle>
           Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
         </PostTitle>
       </div>

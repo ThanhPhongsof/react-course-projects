@@ -10,9 +10,6 @@ const PostCategoryStyles = styled.div`
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
-  a {
-    display: block;
-  }
   ${(props) =>
     props.type === "primary" &&
     css`

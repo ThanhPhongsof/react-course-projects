@@ -3,30 +3,24 @@ import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostTitle from "./PostTitle";
 
-const PostItemStyles = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+const PostNewestLargeStyles = styled.div`
   .post {
     &-image {
-      height: 202px;
-      margin-bottom: 20px;
       display: block;
-      width: 100%;
+      margin-bottom: 16px;
+      height: 433px;
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 8px;
+        border-radius: 16px;
       }
     }
     &-category {
-      /* padding: 8px;
-      border-radius: 8px; */
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
     &-title {
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
     &-info {
       display: flex;
@@ -34,8 +28,7 @@ const PostItemStyles = styled.div`
       gap: 12px;
       font-size: 14px;
       font-weight: 600;
-      color: ${(props) => props.theme.grayScale};
-      margin-top: auto;
+      margin-left: auto;
     }
     &-dot {
       display: inline-block;
@@ -47,26 +40,26 @@ const PostItemStyles = styled.div`
   }
 `;
 
-const PostItem = () => {
+const PostNewestLarge = () => {
   return (
-    <PostItemStyles>
+    <PostNewestLargeStyles>
       <div className="post-image">
         <img
-          src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt=""
         />
       </div>
       <PostCategory>Kiến thức</PostCategory>
-      <PostTitle className="post-title">
-        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+      <PostTitle size="big" className="post-title">
+        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
       </PostTitle>
       <div className="post-info">
-        <span className="post-time">Mar 23</span>
+        <span className="post-item">Mar 23</span>
         <span className="post-dot"></span>
         <span className="post-author">Andiez Le</span>
       </div>
-    </PostItemStyles>
+    </PostNewestLargeStyles>
   );
 };
 
-export default PostItem;
+export default PostNewestLarge;
