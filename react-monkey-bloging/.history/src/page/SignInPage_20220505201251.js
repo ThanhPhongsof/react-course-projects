@@ -56,7 +56,7 @@ const SignInPage = () => {
     if (!isValid) return;
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      navigate("/");
+      // navigate("/");
     } catch (err) {
       toast.error(err);
     }

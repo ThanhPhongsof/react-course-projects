@@ -82,11 +82,7 @@ const SignUpPage = () => {
 
   return (
     <AuthenticationPage>
-      <form
-        className="form"
-        onSubmit={handleSubmit(handleSignUp)}
-        autoComplete="off"
-      >
+      <form className="form" onSubmit={handleSubmit(handleSignUp)}>
         <Field>
           <Label htmlFor="fullname">Fullname</Label>
           <Input

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { useForm } from "react-hook-form";
+import { IconEyeClose, IconEyeOpen } from "components/icon";
 import { Field } from "components/field";
 import { Button } from "components/button";
 import * as yup from "yup";
@@ -66,6 +67,7 @@ const SignUpPage = () => {
     }
   };
 
+  const [togglePassword, setTogglePassword] = useState(false);
   useEffect(() => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
@@ -82,11 +84,7 @@ const SignUpPage = () => {
 
   return (
     <AuthenticationPage>
-      <form
-        className="form"
-        onSubmit={handleSubmit(handleSignUp)}
-        autoComplete="off"
-      >
+      <form className="form" onSubmit={handleSubmit(handleSignUp)}>
         <Field>
           <Label htmlFor="fullname">Fullname</Label>
           <Input
@@ -107,7 +105,7 @@ const SignUpPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <InputPasswordToggle control={control}></InputPasswordToggle>
+          <InputPasswordToggle></InputPasswordToggle>
         </Field>
         <div className="have-account">
           You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>{" "}
