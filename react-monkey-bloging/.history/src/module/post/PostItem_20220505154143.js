@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PostCategory from "./PostCategory";
 
 const PostItemStyles = styled.div`
   display: flex;
@@ -20,8 +19,13 @@ const PostItemStyles = styled.div`
       }
     }
     &-category {
-      /* padding: 8px;
-      border-radius: 8px; */
+      display: inline-block;
+      padding: 8px;
+      border-radius: 8px;
+      color: ${(props) => props.theme.grayScale};
+      background-color: ${(props) => props.theme.purpleLight};
+      font-size: 14px;
+      font-weight: 600;
       margin-bottom: 16px;
     }
     &-title {
@@ -59,7 +63,8 @@ const PostItem = () => {
           alt=""
         />
       </div>
-      <PostCategory>Kiến thức</PostCategory>
+      {/* <PostCategory>Kiến thức</PostCategory> */}
+      <div className="post-category">Kiến thức</div>
       <h3 className="post-title">
         Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
       </h3>
