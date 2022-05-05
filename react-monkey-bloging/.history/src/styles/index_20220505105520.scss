@@ -44,10 +44,6 @@ h6 {
   overflow-wrap: break-word;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: "Poppins", sans-serif;
   font-size: 16px;
@@ -100,6 +96,9 @@ a {
 .home-block {
   padding-bottom: 40px;
   @media screen and (min-width: 1024px) {
+    padding-bottom: 60px;
+  }
+  @media screen and (max-width: 1730px) {
     padding-bottom: 60px;
   }
 }

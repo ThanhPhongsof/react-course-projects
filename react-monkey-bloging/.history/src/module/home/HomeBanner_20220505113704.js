@@ -12,7 +12,7 @@ const HomeBannerStyles = styled.div`
   );
   .banner {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
   .banner-content {
