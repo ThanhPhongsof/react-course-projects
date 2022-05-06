@@ -65,30 +65,6 @@ const PostDetailsPageStyles = styled.div`
       line-height: 2;
     }
   }
-  @media screen and (max-width: 1023.98px) {
-    padding-top: 40px;
-    .post {
-      &-header {
-        flex-direction: column;
-      }
-      &-feature {
-        height: auto;
-      }
-      &-heading {
-        font-size: 26px;
-      }
-      &-content {
-        margin: 40px 0;
-      }
-    }
-    .author {
-      flex-direction: column;
-      &-image {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
 `;
 
 const PostDetailsPage = () => {

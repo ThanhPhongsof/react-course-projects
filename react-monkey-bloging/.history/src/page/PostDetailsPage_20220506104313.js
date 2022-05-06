@@ -39,7 +39,7 @@ const PostDetailsPageStyles = styled.div`
   .author {
     display: flex;
     margin-top: 40px;
-    margin-bottom: 80px;
+    /* margin-bottom: 80px; */
     border-radius: 20px;
     background-color: ${(props) => props.theme.purpleLight};
     &-image {
@@ -63,30 +63,6 @@ const PostDetailsPageStyles = styled.div`
     &-desc {
       font-size: 14px;
       line-height: 2;
-    }
-  }
-  @media screen and (max-width: 1023.98px) {
-    padding-top: 40px;
-    .post {
-      &-header {
-        flex-direction: column;
-      }
-      &-feature {
-        height: auto;
-      }
-      &-heading {
-        font-size: 26px;
-      }
-      &-content {
-        margin: 40px 0;
-      }
-    }
-    .author {
-      flex-direction: column;
-      &-image {
-        width: 100%;
-        height: auto;
-      }
     }
   }
 `;

@@ -69,16 +69,12 @@ const PostDetailsPageStyles = styled.div`
     padding-top: 40px;
     .post {
       &-header {
-        flex-direction: column;
       }
       &-feature {
-        height: auto;
       }
       &-heading {
-        font-size: 26px;
       }
       &-content {
-        margin: 40px 0;
       }
     }
     .author {
