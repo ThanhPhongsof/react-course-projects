@@ -34,7 +34,6 @@ const Checkbox = ({ checked, children, control, name, ...rest }) => {
             />
           </svg>
         </div>
-        <span>{children}</span>
       </div>
     </label>
   );

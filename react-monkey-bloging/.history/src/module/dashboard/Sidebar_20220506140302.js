@@ -42,7 +42,7 @@ const sidebarLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="w-6 h-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -62,7 +62,7 @@ const sidebarLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="w-6 h-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -82,7 +82,7 @@ const sidebarLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="w-6 h-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -102,7 +102,7 @@ const sidebarLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="w-6 h-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -122,7 +122,7 @@ const sidebarLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="w-6 h-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -141,15 +141,15 @@ const sidebarLinks = [
 
 const Sidebar = () => {
   return (
-    <SidebarStyles classNameName="sidebar">
-      <div classNameName="sidebar-logo">
+    <SidebarStyles className="sidebar">
+      <div className="sidebar-logo">
         <img srcSet="/logo.png 2x" alt="" />
         <span>Monkey Blogging</span>
       </div>
       {sidebarLinks?.map((link) => (
-        <NavLink to={link.url} classNameName="menu-item">
-          <span classNameName="menu-icon">{link.icon}</span>
-          <span classNameName="menu-text">{link.title}</span>
+        <NavLink to={link.url} className="menu-item">
+          <span className="menu-icon">{link.icon}</span>
+          <span className="menu-text">{link.title}</span>
         </NavLink>
       ))}
     </SidebarStyles>

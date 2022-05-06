@@ -46,7 +46,7 @@ const PostAddNew = () => {
           <Field>
             <Label>Status</Label>
             <div className="flex items-center gap-x-5">
-              <Radio
+              {/* <Radio
                 name="status"
                 control={control}
                 checked={watchStatus == "approved"}
@@ -72,30 +72,22 @@ const PostAddNew = () => {
                 value="reject"
               >
                 Reject
-              </Radio>
+              </Radio> */}
             </div>
           </Field>
           <Field>
             <Label>Author</Label>
-            <Input control={control} placeholder="Find the author"></Input>
           </Field>
         </div>
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Field>
             <Label>Category</Label>
-            <Dropdown>
-              <Dropdown.Option>Knowledge</Dropdown.Option>
-              <Dropdown.Option>Blockchain</Dropdown.Option>
-              <Dropdown.Option>Setup</Dropdown.Option>
-              <Dropdown.Option>Nature</Dropdown.Option>
-              <Dropdown.Option>Developer</Dropdown.Option>
-            </Dropdown>
           </Field>
           <Field></Field>
         </div>
-        <Button type="submit" className="mx-auto">
+        {/* <Button type="submit" className="mx-auto">
           Add new post
-        </Button>
+        </Button> */}
       </form>
     </PostAddNewStylis>
   );
