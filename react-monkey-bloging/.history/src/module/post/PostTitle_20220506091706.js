@@ -5,7 +5,6 @@ import styled, { css } from "styled-components";
 const PostTitleStyles = styled.h3`
   font-weight: 600;
   line-height: 1.5;
-  letter-spacing: 0.25px;
   a {
     display: block;
   }

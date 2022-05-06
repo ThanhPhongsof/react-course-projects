@@ -5,49 +5,44 @@ import PostImage from "./PostImage";
 import PostMeta from "./PostMeta";
 import PostTitle from "./PostTitle";
 
-const PostItemStyles = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+const PostNewestLargeStyles = styled.div`
   .post {
     &-image {
-      height: 202px;
-      margin-bottom: 20px;
       display: block;
-      width: 100%;
+      margin-bottom: 16px;
+      height: 433px;
       border-radius: 16px;
     }
     &-category {
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
     &-title {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-  }
-  @media screen and (max-width: 1023.98px) {
-    .post {
+    @media screen and (max-width: 1023.98px) {
       &-image {
-        aspect-ratio: 16/9;
-        height: auto;
+        height: 250px;
       }
     }
   }
 `;
 
-const PostItem = () => {
+const PostNewestLarge = () => {
   return (
-    <PostItemStyles>
+    <PostNewestLargeStyles>
       <PostImage
+        className="post-image"
         url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt="pexels"
+        to="/"
       ></PostImage>
       <PostCategory>Kiến thức</PostCategory>
-      <PostTitle className="post-title">
-        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+      <PostTitle size="big">
+        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
       </PostTitle>
       <PostMeta></PostMeta>
-    </PostItemStyles>
+    </PostNewestLargeStyles>
   );
 };
 
-export default PostItem;
+export default PostNewestLarge;

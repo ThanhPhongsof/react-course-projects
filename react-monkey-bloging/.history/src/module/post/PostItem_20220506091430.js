@@ -21,7 +21,7 @@ const PostItemStyles = styled.div`
       margin-bottom: 16px;
     }
     &-title {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
   }
   @media screen and (max-width: 1023.98px) {

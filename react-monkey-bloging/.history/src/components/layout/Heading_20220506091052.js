@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const HeadingStyles = styled.h2`
+  color: ${(props) => props.theme.tertiary};
   font-size: 18px;
   position: relative;
   margin: 30px 0;
@@ -10,11 +11,7 @@ const HeadingStyles = styled.h2`
     content: "";
     width: 50px;
     height: 4px;
-    background-image: linear-gradient(
-      to right bottom,
-      ${(props) => props.theme.primary},
-      ${(props) => props.theme.secondary}
-    );
+    background-color: ${(props) => props.theme.accent};
     position: absolute;
     top: 0;
     left: 0;

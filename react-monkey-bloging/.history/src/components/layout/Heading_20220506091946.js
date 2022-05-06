@@ -10,11 +10,11 @@ const HeadingStyles = styled.h2`
     content: "";
     width: 50px;
     height: 4px;
-    background-image: linear-gradient(
+    /* background-image: linear-gradient(
       to right bottom,
       ${(props) => props.theme.primary},
       ${(props) => props.theme.secondary}
-    );
+    ); */
     position: absolute;
     top: 0;
     left: 0;
