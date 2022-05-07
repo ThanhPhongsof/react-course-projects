@@ -17,28 +17,9 @@ const ToggleStylis = styled.label`
       ${(props) =>
         props.on &&
         css`
-          background-color: rgb(168, 85, 247);
+          background-color: rgb(168 85 247);
         `};
-      ${(props) =>
-        !props.on &&
-        css`
-          background-color: rgb(209, 213, 219);
-        `};
-    }
-    &-span {
-      display: inline-block;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      width: 11px;
-      height: 11px;
-      background-color: white;
-      border-radius: inherit;
-      ${(props) =>
-        props.on &&
-        css`
-          transform: translateX(48px);
-        `};
+      /* transform: translateX(48px); */
     }
   }
 `;

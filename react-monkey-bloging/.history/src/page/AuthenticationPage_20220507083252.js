@@ -5,9 +5,6 @@ import styled from "styled-components";
 const AuthenticationPageStyles = styled.div`
   min-height: 100vh;
   padding: 40px;
-  .text {
-    text-align: center;
-  }
   .logo {
     margin: 0 auto 20px;
   }

@@ -58,6 +58,7 @@ const PostAddNew = () => {
                 name="status"
                 control={control}
                 checked={watchStatus == "pending"}
+                onClick={() => setValue("status", "pending")}
                 value="pending"
               >
                 Pending
@@ -66,6 +67,7 @@ const PostAddNew = () => {
                 name="status"
                 control={control}
                 checked={watchStatus == "reject"}
+                onClick={() => setValue("status", "reject")}
                 value="reject"
               >
                 Reject

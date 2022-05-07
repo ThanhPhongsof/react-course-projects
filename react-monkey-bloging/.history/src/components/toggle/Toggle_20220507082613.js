@@ -24,6 +24,7 @@ const ToggleStylis = styled.label`
         css`
           background-color: rgb(209, 213, 219);
         `};
+      /* transform: translateX(48px); */
     }
     &-span {
       display: inline-block;
@@ -34,11 +35,6 @@ const ToggleStylis = styled.label`
       height: 11px;
       background-color: white;
       border-radius: inherit;
-      ${(props) =>
-        props.on &&
-        css`
-          transform: translateX(48px);
-        `};
     }
   }
 `;
