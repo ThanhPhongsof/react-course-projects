@@ -8,7 +8,6 @@ import { Button } from "components/button";
 import { Checkbox, Radio } from "components/checkbox";
 import { Dropdown } from "components/dropdown";
 import slugify from "slugify";
-import { postStatus } from "utils/constants";
 
 const PostAddNewStylis = styled.div``;
 
@@ -24,8 +23,11 @@ const PostAddNew = () => {
   });
   const watchStatus = watch("status");
   const watchCategory = watch("category");
+
   const addPostHandler = async (values) => {
-    values.slug = slugify(values.slug || values.title);
+    if (values.slug === "") {
+      values.slug = slugify(values.title);
+    }
     console.log(values);
   };
 
@@ -40,7 +42,6 @@ const PostAddNew = () => {
               name="title"
               control={control}
               placeholder="Enter your title"
-              required
             />
           </Field>
           <Field>
@@ -59,24 +60,24 @@ const PostAddNew = () => {
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.APPROVED}
-                value={postStatus.APPROVED}
+                checked={watchStatus == "approved"}
+                value="approved"
               >
                 Approved
               </Radio>
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.PENDING}
-                value={postStatus.PENDING}
+                checked={watchStatus == "pending"}
+                value="pending"
               >
                 Pending
               </Radio>
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.REJECTED}
-                value={postStatus.REJECTED}
+                checked={watchStatus == "reject"}
+                value="reject"
               >
                 Reject
               </Radio>

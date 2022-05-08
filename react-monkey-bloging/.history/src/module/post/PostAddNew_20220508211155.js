@@ -59,7 +59,7 @@ const PostAddNew = () => {
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.APPROVED}
+                checked={watchStatus === postStatus.APPROVED}
                 value={postStatus.APPROVED}
               >
                 Approved
@@ -67,7 +67,7 @@ const PostAddNew = () => {
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.PENDING}
+                checked={watchStatus === postStatus.PENDING}
                 value={postStatus.PENDING}
               >
                 Pending
@@ -75,7 +75,7 @@ const PostAddNew = () => {
               <Radio
                 name="status"
                 control={control}
-                checked={Number(watchStatus) === postStatus.REJECTED}
+                checked={watchStatus === postStatus.REJECTED}
                 value={postStatus.REJECTED}
               >
                 Reject
