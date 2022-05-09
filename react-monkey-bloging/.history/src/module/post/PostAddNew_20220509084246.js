@@ -35,7 +35,7 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    handleUploadImage(cloneValues.image);
+    handleUploadImage(values.image);
   };
 
   const handleUploadImage = (file) => {

@@ -15,7 +15,8 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { toast } from "react-toastify";
+
+const storage = getStorage();
 
 const PostAddNewStylis = styled.div``;
 
@@ -35,13 +36,14 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    handleUploadImage(cloneValues.image);
   };
 
-  const handleUploadImage = (file) => {
-    const storage = getStorage();
+  const handleUploadImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
     const storageRef = ref(storage, "images/" + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -60,21 +62,8 @@ const PostAddNew = () => {
             break;
         }
       },
-      (error) => {
-        toast.message(error.message);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-        });
-      }
+      (error) => {}
     );
-  };
-
-  const onSelecteImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setValue("image", file);
   };
 
   return (
@@ -103,7 +92,7 @@ const PostAddNew = () => {
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Field>
             <Label>Image</Label>
-            <input type="file" name="image" onChange={onSelecteImage} />
+            <input type="file" name="image" onChange={handleUploadImage} />
           </Field>
           <Field>
             <Label>Status</Label>

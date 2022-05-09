@@ -35,10 +35,11 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    handleUploadImage(cloneValues.image);
   };
 
-  const handleUploadImage = (file) => {
+  const handleUploadImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
     const storage = getStorage();
     const storageRef = ref(storage, "images/" + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -71,12 +72,6 @@ const PostAddNew = () => {
     );
   };
 
-  const onSelecteImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setValue("image", file);
-  };
-
   return (
     <PostAddNewStylis>
       <h1 className="dashboard-heading">Add new post</h1>
@@ -103,7 +98,7 @@ const PostAddNew = () => {
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Field>
             <Label>Image</Label>
-            <input type="file" name="image" onChange={onSelecteImage} />
+            <input type="file" name="image" onChange={handleUploadImage} />
           </Field>
           <Field>
             <Label>Status</Label>

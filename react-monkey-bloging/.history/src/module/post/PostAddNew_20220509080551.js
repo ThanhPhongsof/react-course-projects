@@ -9,13 +9,6 @@ import { Checkbox, Radio } from "components/checkbox";
 import { Dropdown } from "components/dropdown";
 import slugify from "slugify";
 import { postStatus } from "utils/constants";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import { toast } from "react-toastify";
 
 const PostAddNewStylis = styled.div``;
 
@@ -35,46 +28,10 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    handleUploadImage(cloneValues.image);
   };
 
-  const handleUploadImage = (file) => {
-    const storage = getStorage();
-    const storageRef = ref(storage, "images/" + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is" + progress + "% done");
-        switch (snapshot.state) {
-          case "pause":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-          default:
-            console.log("Nothing at all");
-            break;
-        }
-      },
-      (error) => {
-        toast.message(error.message);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-        });
-      }
-    );
-  };
-
-  const onSelecteImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setValue("image", file);
+  const handleUploadImage = (e) => {
+    console.log(e.target.files);
   };
 
   return (
@@ -103,7 +60,7 @@ const PostAddNew = () => {
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Field>
             <Label>Image</Label>
-            <input type="file" name="image" onChange={onSelecteImage} />
+            <input type="file" name="image" onChange={handleUploadImage} />
           </Field>
           <Field>
             <Label>Status</Label>
