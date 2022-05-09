@@ -53,7 +53,12 @@ const ImageUploadStyles = styled.label`
       width: 64px;
       height: 64px;
       border-width: 8px;
-      border-color: rgb(34, 197, 94);
+      /* border-color: rgb(34, 197, 94); */
+      background: linear-gradient(
+        to right bottom,
+        ${(props) => props.theme.primary},
+        ${(props) => props.theme.secondary}
+      );
       border-top-color: transparent;
       position: absolute;
       z-index: 10;
@@ -105,7 +110,8 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
+      {/* {progress !== 0 && !image && <div className="image-loading"></div>} */}
+      <div className="image-loading"></div>
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />

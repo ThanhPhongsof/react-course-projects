@@ -105,7 +105,10 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
+      {/* progress !== 0 && !image &&  */}
+      <div className="image-loading"></div>
+      {/* <div className="absolute z-10 w-16 h-16 border-8 border-green-500 rounded-full loading border-t-transparent "></div> */}
+      {/* animate-spin */}
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 
 const ImageUploadStyles = styled.label`
   display: flex;
@@ -14,10 +14,6 @@ const ImageUploadStyles = styled.label`
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  &:hover .image-icon-delete {
-    opacity: 1;
-    visibility: visible;
-  }
   .image {
     &-display {
       display: flex;
@@ -43,22 +39,6 @@ const ImageUploadStyles = styled.label`
       cursor: pointer;
       background-color: rgb(255 255 255 / 1);
       color: rgb(239 68 68);
-      opacity: 0;
-      visibility: hidden;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    &-loading {
-      width: 64px;
-      height: 64px;
-      border-width: 8px;
-      border-color: rgb(34, 197, 94);
-      border-top-color: transparent;
-      position: absolute;
-      z-index: 10;
-      border-radius: 9999px;
-      animation: spin 1s linear infinite;
     }
     &-none {
       max-width: 80px;
@@ -70,20 +50,12 @@ const ImageUploadStyles = styled.label`
     &-overlay {
       position: absolute;
       height: 2px;
-      background-color: rgb(74, 222, 128);
+      background-color: rgb(74 222 128);
       left: 0;
       bottom: 0;
       transition-property: all;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 150ms;
-    }
-  }
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
     }
   }
 `;
@@ -105,7 +77,6 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />

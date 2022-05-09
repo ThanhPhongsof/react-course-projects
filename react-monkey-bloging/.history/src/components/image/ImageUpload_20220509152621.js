@@ -105,7 +105,8 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
+      {/* {progress !== 0 && !image && <div className="image-loading"></div>} */}
+      <div className="image-loading"></div>
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />

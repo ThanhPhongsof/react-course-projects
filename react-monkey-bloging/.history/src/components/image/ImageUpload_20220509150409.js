@@ -52,13 +52,14 @@ const ImageUploadStyles = styled.label`
     &-loading {
       width: 64px;
       height: 64px;
-      border-width: 8px;
-      border-color: rgb(34, 197, 94);
+      border: 8px;
+      /* border-color: rgb(34,197,94); */
+      border-color: purple;
       border-top-color: transparent;
       position: absolute;
       z-index: 10;
       border-radius: 9999px;
-      animation: spin 1s linear infinite;
+      /* animation: spin 1s linear infinite; */
     }
     &-none {
       max-width: 80px;
@@ -105,7 +106,10 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
+      {/* progress !== 0 && !image &&  */}
+      <div className="image-loading"></div>
+      <div className="absolute z-10 w-16 h-16 border-8 border-green-500 rounded-full loading border-t-transparent "></div>
+      {/* animate-spin */}
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />

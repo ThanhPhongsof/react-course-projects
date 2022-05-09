@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 
 const ImageUploadStyles = styled.label`
   display: flex;
@@ -14,11 +14,12 @@ const ImageUploadStyles = styled.label`
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  &:hover .image-icon-delete {
-    opacity: 1;
-    visibility: visible;
-  }
+
   .image {
+    &:hover &-icon-delete {
+      opacity: 1;
+      visibility: visible;
+    }
     &-display {
       display: flex;
       flex-direction: column;
@@ -50,15 +51,16 @@ const ImageUploadStyles = styled.label`
       transition-duration: 150ms;
     }
     &-loading {
-      width: 64px;
-      height: 64px;
-      border-width: 8px;
-      border-color: rgb(34, 197, 94);
+      width: 56px;
+      height: 56px;
+      border: 4px;
+      border-color: white;
+      border-color: rgb(34 197 94);
       border-top-color: transparent;
       position: absolute;
       z-index: 10;
-      border-radius: 9999px;
       animation: spin 1s linear infinite;
+      border-radius: 9999px;
     }
     &-none {
       max-width: 80px;
@@ -78,14 +80,6 @@ const ImageUploadStyles = styled.label`
       transition-duration: 150ms;
     }
   }
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 const ImageUpload = ({
@@ -97,7 +91,7 @@ const ImageUpload = ({
   ...rest
 }) => {
   return (
-    <ImageUploadStyles className={className}>
+    <ImageUploadStyles className={`${className} `}>
       <input
         type="file"
         name={name}
@@ -111,7 +105,7 @@ const ImageUpload = ({
           <img src={image} className="image-show" alt="" />
           <button
             type="button"
-            className="image-icon-delete"
+            className="image-icon-delete group-hover:opacity-100 group-hover:visible"
             onClick={handleDeleteImage}
           >
             <svg

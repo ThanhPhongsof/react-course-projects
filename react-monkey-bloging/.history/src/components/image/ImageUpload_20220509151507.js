@@ -70,7 +70,12 @@ const ImageUploadStyles = styled.label`
     &-overlay {
       position: absolute;
       height: 2px;
-      background-color: rgb(74, 222, 128);
+      /* background-color: rgb(74, 222, 128); */
+      background-image: linear-gradient(
+        to right bottom,
+        ${(props) => props.theme.primary},
+        ${(props) => props.theme.secondary}
+      );
       left: 0;
       bottom: 0;
       transition-property: all;
@@ -105,7 +110,8 @@ const ImageUpload = ({
         onChange={() => {}}
         {...rest}
       />
-      {progress !== 0 && !image && <div className="image-loading"></div>}
+      {/* {progress !== 0 && !image && <div className="image-loading"></div>} */}
+      <div className="image-loading"></div>
       {image ? (
         <Fragment>
           <img src={image} className="image-show" alt="" />
