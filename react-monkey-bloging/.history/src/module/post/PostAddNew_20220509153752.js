@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { Field } from "components/field";
@@ -9,7 +9,16 @@ import { Checkbox, Radio } from "components/checkbox";
 import { Dropdown } from "components/dropdown";
 import slugify from "slugify";
 import { postStatus } from "utils/constants";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import { toast } from "react-toastify";
 import ImageUpload from "components/image/ImageUpload";
+import { collection } from "firebase/firestore";
 import useFirebaseImage from "hooks/useFirebaseImage";
 
 const PostAddNewStylis = styled.div``;
@@ -36,7 +45,7 @@ const PostAddNew = () => {
     // });
   };
 
-  const { image, progress, handleSelecteImage, handleDeleteImage } =
+  const { image, progress, onSelecteImage, handleDeleteImage } =
     useFirebaseImage(setValue, getValues);
 
   return (
@@ -69,7 +78,7 @@ const PostAddNew = () => {
               name="image"
               progress={progress}
               image={image}
-              onChange={handleSelecteImage}
+              onChange={onSelecteImage}
               handleDeleteImage={handleDeleteImage}
             ></ImageUpload>
           </Field>
