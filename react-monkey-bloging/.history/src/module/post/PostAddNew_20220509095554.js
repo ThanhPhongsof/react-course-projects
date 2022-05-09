@@ -17,7 +17,6 @@ import {
 } from "firebase/storage";
 import { toast } from "react-toastify";
 import ImageUpload from "components/image/ImageUpload";
-import { collection } from "firebase/firestore";
 
 const PostAddNewStylis = styled.div``;
 
@@ -37,10 +36,7 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    // const colRef = collection(db,"posts");
-    // await addDoc(colRef,{
-    //   image:
-    // });
+    handleUploadImage(cloneValues.image);
   };
 
   const [progress, setProgress] = useState(0);

@@ -17,7 +17,6 @@ import {
 } from "firebase/storage";
 import { toast } from "react-toastify";
 import ImageUpload from "components/image/ImageUpload";
-import { collection } from "firebase/firestore";
 
 const PostAddNewStylis = styled.div``;
 
@@ -37,10 +36,7 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    // const colRef = collection(db,"posts");
-    // await addDoc(colRef,{
-    //   image:
-    // });
+    handleUploadImage(cloneValues.image);
   };
 
   const [progress, setProgress] = useState(0);
@@ -54,6 +50,7 @@ const PostAddNew = () => {
       (snapshot) => {
         const progressPercent =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is" + progressPercent + "% done");
         setProgress(progressPercent);
         switch (snapshot.state) {
           case "pause":
@@ -73,7 +70,6 @@ const PostAddNew = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImage(downloadURL);
         });
       }
     );
@@ -115,7 +111,6 @@ const PostAddNew = () => {
               name="image"
               onChange={onSelecteImage}
               progress={progress}
-              image={image}
             ></ImageUpload>
           </Field>
           <Field>

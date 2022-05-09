@@ -17,7 +17,6 @@ import {
 } from "firebase/storage";
 import { toast } from "react-toastify";
 import ImageUpload from "components/image/ImageUpload";
-import { collection } from "firebase/firestore";
 
 const PostAddNewStylis = styled.div``;
 
@@ -37,14 +36,10 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     values.slug = slugify(values.slug || values.title);
     values.status = Number(values.status);
-    // const colRef = collection(db,"posts");
-    // await addDoc(colRef,{
-    //   image:
-    // });
+    handleUploadImage(cloneValues.image);
   };
 
   const [progress, setProgress] = useState(0);
-  const [image, setImage] = useState("");
   const handleUploadImage = (file) => {
     const storage = getStorage();
     const storageRef = ref(storage, "images/" + file.name);
@@ -54,6 +49,7 @@ const PostAddNew = () => {
       (snapshot) => {
         const progressPercent =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is" + progressPercent + "% done");
         setProgress(progressPercent);
         switch (snapshot.state) {
           case "pause":
@@ -73,7 +69,6 @@ const PostAddNew = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImage(downloadURL);
         });
       }
     );
@@ -82,7 +77,6 @@ const PostAddNew = () => {
     const file = e.target.files[0];
     if (!file) return;
     setValue("image", file);
-    handleUploadImage(file);
   };
 
   return (
@@ -111,12 +105,8 @@ const PostAddNew = () => {
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Field>
             <Label>Image</Label>
-            <ImageUpload
-              name="image"
-              onChange={onSelecteImage}
-              progress={progress}
-              image={image}
-            ></ImageUpload>
+
+            <ImageUpload name="image" onChange={onSelecteImage}></ImageUpload>
           </Field>
           <Field>
             <Label>Status</Label>
