@@ -22,13 +22,10 @@ import {
 } from "firebase/firestore";
 import { db } from "firebase-app/firebase-config";
 import _ from "lodash";
-import { toast } from "react-toastify";
-import { useAuth } from "contexts/auth-context";
 
 const PostAddNewStylis = styled.div``;
 
 const PostAddNew = () => {
-  const { userInfo } = useAuth();
   const { control, watch, setValue, getValues, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -46,20 +43,19 @@ const PostAddNew = () => {
     useFirebaseImage(setValue, getValues);
   const addPostHandler = async (values) => {
     const cloneValues = { ...values };
-    cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+    cloneValues.slug = slugify(values.slug || values.title);
     cloneValues.status = Number(values.status);
     const colRef = collection(db, "posts");
     try {
       await addDoc(colRef, {
         ...cloneValues,
         image,
-        userId: userInfo.uid,
       });
       console.log(
         "🚀 ~ file: PostAddNew.js ~ line 38 ~ addPostHandler ~ cloneValues",
         cloneValues
       );
-      toast.success("Create new post successfully!");
+      toast.success("");
     } catch (err) {
       toast.error(err);
     }

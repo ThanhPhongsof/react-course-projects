@@ -46,7 +46,7 @@ const PostAddNew = () => {
     useFirebaseImage(setValue, getValues);
   const addPostHandler = async (values) => {
     const cloneValues = { ...values };
-    cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+    cloneValues.slug = slugify(values.slug || values.title);
     cloneValues.status = Number(values.status);
     const colRef = collection(db, "posts");
     try {
