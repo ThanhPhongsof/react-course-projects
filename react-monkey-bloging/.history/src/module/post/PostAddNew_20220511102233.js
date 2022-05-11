@@ -57,7 +57,7 @@ const PostAddNew = () => {
         hot: false,
         image: "",
       });
-      setSelectCategory({});
+      setSelectCategory(null);
     } catch (err) {
       toast.error(err);
     }
@@ -139,7 +139,7 @@ const PostAddNew = () => {
             </Dropdown>
             {selectCategory?.name && (
               <span className="inline-block p-4 text-sm font-medium text-green-600 bg-green-100 rounded-lg">
-                {selectCategory?.name}
+                {selectCategory.name}
               </span>
             )}
           </Field>

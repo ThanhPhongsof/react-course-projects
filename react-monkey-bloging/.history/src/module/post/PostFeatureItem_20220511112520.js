@@ -82,7 +82,7 @@ const PostFeatureItem = ({ data }) => {
       <div className="post-content">
         <div className="post-top">
           {category?.name && <PostCategory>{category?.name}</PostCategory>}
-          <PostMeta authorName={user?.name}></PostMeta>
+          <PostMeta></PostMeta>
         </div>
         <PostTitle size="big">{data.title}</PostTitle>
       </div>

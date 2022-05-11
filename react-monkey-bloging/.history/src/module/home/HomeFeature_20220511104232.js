@@ -28,21 +28,20 @@ const HomeFeature = () => {
       snapshot.forEach((doc) => {
         results.push({
           id: doc.id,
-          ...doc.data(),
+          ...doc.data,
         });
       });
       setPosts(results);
     });
   }, []);
   if (posts.length <= 0) return null;
+
   return (
     <HomeFeatureStyles className="home-block">
       <div className="container">
         <Heading>Bài viết nổi bật</Heading>
         <div className="grid-layout">
-          {posts?.map((post) => (
-            <PostFeatureItem key={post.id} data={post}></PostFeatureItem>
-          ))}
+          <PostFeatureItem></PostFeatureItem>
         </div>
       </div>
     </HomeFeatureStyles>

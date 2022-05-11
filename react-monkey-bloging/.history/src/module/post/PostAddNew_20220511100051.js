@@ -21,7 +21,7 @@ const PostAddNewStylis = styled.div``;
 
 const PostAddNew = () => {
   const { userInfo } = useAuth();
-  const { control, watch, setValue, getValues, handleSubmit, reset } = useForm({
+  const { control, watch, setValue, getValues, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
@@ -29,7 +29,6 @@ const PostAddNew = () => {
       status: 2,
       categoryId: "",
       hot: false,
-      image: "",
     },
   });
   const watchStatus = watch("status");
@@ -48,24 +47,17 @@ const PostAddNew = () => {
         image,
         userId: userInfo.uid,
       });
+      console.log(
+        "🚀 ~ file: PostAddNew.js ~ line 38 ~ addPostHandler ~ cloneValues",
+        cloneValues
+      );
       toast.success("Create new post successfully!");
-      reset({
-        title: "",
-        slug: "",
-        status: 2,
-        categoryId: "",
-        hot: false,
-        image: "",
-      });
-      setSelectCategory({});
     } catch (err) {
       toast.error(err);
     }
   };
 
   const [categories, setCategories] = useState([]);
-  const [selectCategory, setSelectCategory] = useState("");
-
   useEffect(() => {
     async function getData() {
       const colRel = collection(db, "categories");
@@ -82,11 +74,6 @@ const PostAddNew = () => {
     }
     getData();
   }, []);
-
-  const hamdleClickOption = (item) => {
-    setValue("categoryId", item.id);
-    setSelectCategory(item);
-  };
 
   return (
     <PostAddNewStylis>
@@ -130,18 +117,13 @@ const PostAddNew = () => {
                 {categories?.map((item) => (
                   <Dropdown.Option
                     key={item.id}
-                    onClick={() => hamdleClickOption(item)}
+                    onClick={() => setValue("categoryId", item.id)}
                   >
                     {item.name}
                   </Dropdown.Option>
                 ))}
               </Dropdown.List>
             </Dropdown>
-            {selectCategory?.name && (
-              <span className="inline-block p-4 text-sm font-medium text-green-600 bg-green-100 rounded-lg">
-                {selectCategory?.name}
-              </span>
-            )}
           </Field>
         </div>
         <div className="grid grid-cols-2 mb-10 gap-x-10">

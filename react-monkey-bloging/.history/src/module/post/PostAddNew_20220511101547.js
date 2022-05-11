@@ -57,7 +57,6 @@ const PostAddNew = () => {
         hot: false,
         image: "",
       });
-      setSelectCategory({});
     } catch (err) {
       toast.error(err);
     }
@@ -130,6 +129,7 @@ const PostAddNew = () => {
                 {categories?.map((item) => (
                   <Dropdown.Option
                     key={item.id}
+                    // onClick={() => setValue("categoryId", item.id)}
                     onClick={() => hamdleClickOption(item)}
                   >
                     {item.name}
@@ -137,9 +137,9 @@ const PostAddNew = () => {
                 ))}
               </Dropdown.List>
             </Dropdown>
-            {selectCategory?.name && (
-              <span className="inline-block p-4 text-sm font-medium text-green-600 bg-green-100 rounded-lg">
-                {selectCategory?.name}
+            {selectCategory.name && (
+              <span className="inline-block p-4 bg-gray-200 rounded-lg">
+                {selectCategory.name}
               </span>
             )}
           </Field>

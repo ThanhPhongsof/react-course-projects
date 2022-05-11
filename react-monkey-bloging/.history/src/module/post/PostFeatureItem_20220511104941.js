@@ -1,6 +1,4 @@
-import { db } from "firebase-app/firebase-config";
-import { collection, doc, getDoc, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
@@ -53,38 +51,22 @@ const PostFeatureItemStyles = styled.div`
 `;
 
 const PostFeatureItem = ({ data }) => {
-  const [category, setCategory] = useState("");
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    async function fetchCategory() {
-      const categoryRef = doc(db, "categories", data.categoryId);
-      const categorySnap = await getDoc(categoryRef);
-      setCategory(categorySnap.data());
-    }
-
-    fetchCategory();
-  }, [data.categoryId]);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const userRef = doc(db, "users", data.userId);
-      const userSnap = await getDoc(userRef);
-      setUser(userSnap.data());
-    }
-    fetchUser();
-  }, [data.userId]);
-
-  if (!data || !data.id) return;
+  if (!data) return;
   return (
     <PostFeatureItemStyles>
-      <PostImage url={data.image} alt="pexels"></PostImage>
+      <PostImage
+        url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="pexels"
+      ></PostImage>
       <div className="post-overlay"></div>
       <div className="post-content">
         <div className="post-top">
-          {category?.name && <PostCategory>{category?.name}</PostCategory>}
-          <PostMeta authorName={user?.name}></PostMeta>
+          <PostCategory>Kiến thức</PostCategory>
+          <PostMeta></PostMeta>
         </div>
-        <PostTitle size="big">{data.title}</PostTitle>
+        <PostTitle size="big">
+          Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+        </PostTitle>
       </div>
     </PostFeatureItemStyles>
   );

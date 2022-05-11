@@ -54,26 +54,14 @@ const PostFeatureItemStyles = styled.div`
 
 const PostFeatureItem = ({ data }) => {
   const [category, setCategory] = useState("");
-  const [user, setUser] = useState("");
   useEffect(() => {
-    async function fetchCategory() {
-      const categoryRef = doc(db, "categories", data.categoryId);
-      const categorySnap = await getDoc(categoryRef);
-      setCategory(categorySnap.data());
+    async function getCategory() {
+      const docRef = doc(db, "categories", data.categoryId);
+      const docSnap = await getDoc(docRef);
+      setCategory(docSnap.data());
     }
-
-    fetchCategory();
-  }, [data.categoryId]);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const userRef = doc(db, "users", data.userId);
-      const userSnap = await getDoc(userRef);
-      setUser(userSnap.data());
-    }
-    fetchUser();
-  }, [data.userId]);
-
+    getCategory();
+  }, []);
   if (!data || !data.id) return;
   return (
     <PostFeatureItemStyles>
@@ -81,8 +69,8 @@ const PostFeatureItem = ({ data }) => {
       <div className="post-overlay"></div>
       <div className="post-content">
         <div className="post-top">
-          {category?.name && <PostCategory>{category?.name}</PostCategory>}
-          <PostMeta authorName={user?.name}></PostMeta>
+          <PostCategory>Kiến thức</PostCategory>
+          <PostMeta></PostMeta>
         </div>
         <PostTitle size="big">{data.title}</PostTitle>
       </div>

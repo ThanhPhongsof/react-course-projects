@@ -24,25 +24,17 @@ const HomeFeature = () => {
       limit(3)
     );
     onSnapshot(queries, (snapshot) => {
-      const results = [];
-      snapshot.forEach((doc) => {
-        results.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPosts(results);
+      snapshot.forEach((item) => {});
     });
   }, []);
   if (posts.length <= 0) return null;
+
   return (
     <HomeFeatureStyles className="home-block">
       <div className="container">
         <Heading>Bài viết nổi bật</Heading>
         <div className="grid-layout">
-          {posts?.map((post) => (
-            <PostFeatureItem key={post.id} data={post}></PostFeatureItem>
-          ))}
+          <PostFeatureItem></PostFeatureItem>
         </div>
       </div>
     </HomeFeatureStyles>

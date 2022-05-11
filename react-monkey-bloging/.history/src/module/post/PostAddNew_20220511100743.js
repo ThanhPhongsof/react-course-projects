@@ -57,14 +57,13 @@ const PostAddNew = () => {
         hot: false,
         image: "",
       });
-      setSelectCategory({});
     } catch (err) {
       toast.error(err);
     }
   };
 
   const [categories, setCategories] = useState([]);
-  const [selectCategory, setSelectCategory] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -82,11 +81,6 @@ const PostAddNew = () => {
     }
     getData();
   }, []);
-
-  const hamdleClickOption = (item) => {
-    setValue("categoryId", item.id);
-    setSelectCategory(item);
-  };
 
   return (
     <PostAddNewStylis>
@@ -130,18 +124,13 @@ const PostAddNew = () => {
                 {categories?.map((item) => (
                   <Dropdown.Option
                     key={item.id}
-                    onClick={() => hamdleClickOption(item)}
+                    onClick={() => setValue("categoryId", item.id)}
                   >
                     {item.name}
                   </Dropdown.Option>
                 ))}
               </Dropdown.List>
             </Dropdown>
-            {selectCategory?.name && (
-              <span className="inline-block p-4 text-sm font-medium text-green-600 bg-green-100 rounded-lg">
-                {selectCategory?.name}
-              </span>
-            )}
           </Field>
         </div>
         <div className="grid grid-cols-2 mb-10 gap-x-10">

@@ -28,13 +28,14 @@ const HomeFeature = () => {
       snapshot.forEach((doc) => {
         results.push({
           id: doc.id,
-          ...doc.data(),
+          ...doc.data,
         });
       });
       setPosts(results);
     });
   }, []);
   if (posts.length <= 0) return null;
+  console.log(posts);
   return (
     <HomeFeatureStyles className="home-block">
       <div className="container">
