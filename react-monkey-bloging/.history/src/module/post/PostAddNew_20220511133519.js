@@ -37,20 +37,15 @@ const PostAddNew = () => {
       categoryId: "",
       hot: false,
       image: "",
-      createdAt: serverTimestamp(),
+      createdAt: serverTimestamp,
     },
   });
   const watchStatus = watch("status");
   const watchCategory = watch("category");
   const [loading, setLoading] = useState(false);
   const watchHot = watch("hot");
-  const {
-    image,
-    progress,
-    handleSelecteImage,
-    handleDeleteImage,
-    handleResetUpload,
-  } = useFirebaseImage(setValue, getValues);
+  const { image, setImage, progress, handleSelecteImage, handleDeleteImage } =
+    useFirebaseImage(setValue, getValues);
   const addPostHandler = async (values) => {
     setLoading(true);
     try {
@@ -62,7 +57,7 @@ const PostAddNew = () => {
         ...cloneValues,
         image,
         userId: userInfo.uid,
-        createdAt: serverTimestamp(),
+        createdAt: serverTimestamp,
       });
       toast.success("Create new post successfully!");
       reset({
@@ -74,7 +69,7 @@ const PostAddNew = () => {
         image: "",
       });
       setSelectCategory({});
-      handleResetUpload();
+      setImage("");
     } catch (err) {
       setLoading(false);
       toast.error(err);
@@ -101,10 +96,6 @@ const PostAddNew = () => {
       setCategories(result);
     }
     getData();
-  }, []);
-
-  useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
   }, []);
 
   const hamdleClickOption = (item) => {

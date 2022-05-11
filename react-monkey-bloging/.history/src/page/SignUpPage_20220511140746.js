@@ -35,6 +35,8 @@ const SignUpPage = () => {
     control,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
+    watch,
+    reset,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),

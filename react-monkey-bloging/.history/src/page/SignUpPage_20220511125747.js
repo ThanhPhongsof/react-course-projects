@@ -14,7 +14,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
-import slugify from "slugify";
 
 const schema = yup.object({
   fullname: yup.string().required("Please enter your fullname"),
@@ -35,6 +34,8 @@ const SignUpPage = () => {
     control,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
+    watch,
+    reset,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -43,6 +44,11 @@ const SignUpPage = () => {
   const handleSignUp = async (values) => {
     if (!isValid) return;
     try {
+      const creditial = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       await updateProfile(auth.currentUser, {
         displayName: values.fullname,
       });
@@ -50,7 +56,6 @@ const SignUpPage = () => {
         fullname: values.fullname,
         email: values.email,
         password: values.password,
-        username: slugify(values.fullname, { lower: true }),
       });
       toast.success("Register successfully !");
       navigate("/");

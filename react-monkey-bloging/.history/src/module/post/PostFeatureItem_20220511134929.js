@@ -1,7 +1,6 @@
 import { db } from "firebase-app/firebase-config";
 import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import slugify from "slugify";
 import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
@@ -78,12 +77,9 @@ const PostFeatureItem = ({ data }) => {
     }
     fetchUser();
   }, [data.userId]);
-  if (!data || !data.id) return;
-  const date = data?.createdAt
-    ? new Date(data?.createdAt?.seconds * 1000)
-    : new Date();
-  const formatDate = new Date(date).toLocaleDateString("vi-VI");
+  console.log("user", user);
 
+  if (!data || !data.id) return;
   return (
     <PostFeatureItemStyles>
       <PostImage url={data.image} alt="pexels"></PostImage>
@@ -93,11 +89,7 @@ const PostFeatureItem = ({ data }) => {
           {category?.name && (
             <PostCategory to={category.slug}>{category?.name}</PostCategory>
           )}
-          <PostMeta
-            to={slugify(user?.fullname || "", { lower: true })}
-            date={formatDate}
-            authorName={user?.fullname}
-          ></PostMeta>
+          <PostMeta authorName={user?.fullname}></PostMeta>
         </div>
         <PostTitle to={data.slug} size="big">
           {data.title}

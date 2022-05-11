@@ -103,10 +103,6 @@ const PostAddNew = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
-  }, []);
-
   const hamdleClickOption = (item) => {
     setValue("categoryId", item.id);
     setSelectCategory(item);
