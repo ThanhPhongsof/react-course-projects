@@ -179,7 +179,7 @@ const PostAddNew = () => {
           </Field>
           <Field>
             <Label>Status</Label>
-            <FieldCheckboxes>
+            <div className="flex flex-wrap items-center gap-5">
               <Radio
                 name="status"
                 control={control}
@@ -204,7 +204,7 @@ const PostAddNew = () => {
               >
                 Reject
               </Radio>
-            </FieldCheckboxes>
+            </div>
           </Field>
         </div>
         <Button

@@ -19,7 +19,7 @@ const Radio = ({ checked, children, control, name, ...rest }) => {
             checked ? "bg-green-400" : "bg-gray-200"
           }`}
         >
-          {checked && (
+          {check && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6"
