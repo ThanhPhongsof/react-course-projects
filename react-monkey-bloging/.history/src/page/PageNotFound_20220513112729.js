@@ -39,6 +39,17 @@ const PageNotFoundStyles = styled.div`
     );
     border-radius: 8px;
     font-weight: 500;
+
+    /* display: inline-block;
+    padding: 15px 30px;
+    color: white;
+    background-image: linear-gradient(
+      to right top,
+      ${(props) => props.theme.primary},
+      ${(props) => props.theme.secondary}
+    );
+    border-radius: 8px;
+    font-weight: 500; */
   }
   .image {
     max-width: 250px;

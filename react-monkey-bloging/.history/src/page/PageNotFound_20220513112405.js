@@ -32,7 +32,7 @@ const PageNotFoundStyles = styled.div`
     display: inline-block;
     padding: 15px 30px;
     color: white;
-    background-image: linear-gradient(
+    background-color: linear-gradient(
       to right top,
       ${(props) => props.theme.primary},
       ${(props) => props.theme.secondary}

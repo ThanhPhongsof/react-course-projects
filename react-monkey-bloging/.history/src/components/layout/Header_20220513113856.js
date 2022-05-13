@@ -64,6 +64,10 @@ const menuLink = [
     url: "/contact",
     title: "Contact",
   },
+  {
+    url: "/dashboard",
+    title: "Dashboard",
+  },
 ];
 
 const Header = () => {
