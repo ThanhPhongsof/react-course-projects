@@ -70,7 +70,7 @@ const sidebarLinks = [
   },
   {
     title: "Category",
-    url: "/manage/category",
+    url: "/manage/categories",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ const sidebarLinks = [
   },
   {
     title: "User",
-    url: "/manage/user",
+    url: "/manage/users",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

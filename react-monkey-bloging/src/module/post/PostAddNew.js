@@ -56,8 +56,10 @@ const PostAddNew = () => {
     setLoading(true);
     try {
       const cloneValues = { ...values };
-      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
-      cloneValues.status = Number(values.status);
+      cloneValues.slug = slugify(cloneValues.slug || cloneValues.title, {
+        lower: true,
+      });
+      cloneValues.status = Number(cloneValues.status);
       const colRef = collection(db, "posts");
       await addDoc(colRef, {
         ...cloneValues,

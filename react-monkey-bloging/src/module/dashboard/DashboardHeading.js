@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const DashboardHeadingStyles = styled.div``;
+const DashboardHeadingStyles = styled.div`
+  margin-bottom: 2.5rem;
+`;
 
 const DashboardHeading = ({ title = "", desc = "" }) => {
   return (
