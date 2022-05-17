@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const PageNotFoundStyles = styled.div`
@@ -28,7 +28,7 @@ const PageNotFoundStyles = styled.div`
     max-width: 800px;
     margin: 0 auto 40px;
   }
-  .black {
+  .back {
     display: inline-block;
     padding: 15px 30px;
     color: white;
@@ -57,9 +57,9 @@ const PageNotFound = () => {
           Chances are your spelled something wrong, so can you double check the
           URL?
         </p>
-        <NavLink to="/" className={"black"}>
-          Back to home
-        </NavLink>
+        <button onClick={() => navigate(-1)} className="back">
+          Go back
+        </button>
       </div>
     </PageNotFoundStyles>
   );

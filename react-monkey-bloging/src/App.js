@@ -12,6 +12,8 @@ import PageNotFound from "page/PageNotFound";
 import UserAddNew from "module/user/UserAddNew";
 import UserProfile from "module/user/UserProfile";
 import CategoryAddNew from "module/category/CategoryAddNew";
+import UserManager from "module/user/UserManage";
+import CategoryManage from "module/category/CategoryManage";
 
 const App = () => {
   return (
@@ -32,7 +34,7 @@ const App = () => {
               element={<DashboardPage></DashboardPage>}
             ></Route>
             <Route
-              path="/manage/post"
+              path="/manage/posts"
               element={<PostManage></PostManage>}
             ></Route>
             <Route
@@ -40,8 +42,16 @@ const App = () => {
               element={<PostAddNew></PostAddNew>}
             ></Route>
             <Route
+              path="/manage/categories"
+              element={<CategoryManage></CategoryManage>}
+            ></Route>
+            <Route
               path="/manage/add-category"
               element={<CategoryAddNew></CategoryAddNew>}
+            ></Route>
+            <Route
+              path="/manage/users"
+              element={<UserManager></UserManager>}
             ></Route>
             <Route
               path="/manage/add-user"

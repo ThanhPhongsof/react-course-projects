@@ -23,8 +23,9 @@ import {
 import { db } from "firebase-app/firebase-config";
 import { toast } from "react-toastify";
 import { useAuth } from "contexts/auth-context";
+import DashboardHeading from "module/dashboard/DashboardHeading";
 
-const PostAddNewStylis = styled.div``;
+const PostAddNewStyles = styled.div``;
 
 const PostAddNew = () => {
   const { userInfo } = useAuth();
@@ -113,9 +114,8 @@ const PostAddNew = () => {
   };
 
   return (
-    <PostAddNewStylis>
-      <h1 className="dashboard-heading">Add new</h1>
-      <p className="dashboard-short-desc">Add new post</p>
+    <PostAddNewStyles>
+      <DashboardHeading title="Add post" desc="Add new post"></DashboardHeading>
       <form onSubmit={handleSubmit(addPostHandler)}>
         <div className="form-layout">
           <Field>
@@ -216,7 +216,7 @@ const PostAddNew = () => {
           Add new post
         </Button>
       </form>
-    </PostAddNewStylis>
+    </PostAddNewStyles>
   );
 };
 

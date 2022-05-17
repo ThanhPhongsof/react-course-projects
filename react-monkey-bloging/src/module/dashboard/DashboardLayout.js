@@ -40,7 +40,7 @@ const DashboardLayoutStyles = styled.div`
   }
 `;
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const { userInfo } = useAuth();
   if (!userInfo) return <PageNotFound></PageNotFound>;
   return (

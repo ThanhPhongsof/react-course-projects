@@ -131,3 +131,9 @@ a {
 .form-layout {
   @apply grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 mb-5 lg:mb-10;
 }
+
+.flex-wrap-gap-5 {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+}
