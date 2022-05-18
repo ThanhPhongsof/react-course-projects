@@ -155,3 +155,21 @@ a {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.load-more {
+  &-data {
+    margin-top: 40px;
+  }
+  &-btn {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset;
+}

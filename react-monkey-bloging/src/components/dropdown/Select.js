@@ -1,5 +1,18 @@
 import { useDropdown } from "contexts/dropdown-context";
 import React from "react";
+import styled from "styled-components";
+
+const SelectStyles = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: white;
+  border-width: 1px;
+  border-color: rgb(241, 241, 243);
+  border-radius: 8px;
+  cursor: pointer;
+`;
 
 const Select = ({
   placeholder = "Please select an option",
@@ -7,10 +20,7 @@ const Select = ({
 }) => {
   const { toggle, show } = useDropdown();
   return (
-    <div
-      className={`flex items-center justify-between py-[15px] px-[25px] font-medium bg-white border rounded-lgcursor-pointer border-grayf1 ${className}`}
-      onClick={toggle}
-    >
+    <SelectStyles className={className} onClick={toggle}>
       <span>{placeholder}</span>
       <span>
         {show ? (
@@ -45,7 +55,7 @@ const Select = ({
           </svg>
         )}
       </span>
-    </div>
+    </SelectStyles>
   );
 };
 

@@ -71,7 +71,7 @@ const PostManage = () => {
       </Table>
       <div className="mt-10">
         {/* <Pagination></Pagination> */}
-        <Button kind="ghost" className="mx-auto w-[200px]">
+        <Button kind="ghost" className="load-more-btn">
           See more+
         </Button>
       </div>

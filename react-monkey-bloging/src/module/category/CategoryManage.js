@@ -8,8 +8,11 @@ import {
   deleteDoc,
   doc,
   endAt,
+  getDocs,
+  limit,
   onSnapshot,
   query,
+  startAfter,
   startAt,
   where,
 } from "firebase/firestore";
@@ -37,9 +40,33 @@ const CategoryManageStyles = styled.div`
 
 const CategoryManage = () => {
   const [categoryList, setCategoryList] = useState();
-  const [categoryCount, setCategoryCount] = useState(0);
   const navigate = useNavigate();
   const [filter, setFilter] = useState();
+
+  const loadMoreCategoryHandler = async () => {
+    const first = query(collection(db, "categories"), limit(1));
+    const documentSnapshots = await getDocs(first);
+    const lastVisible =
+      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    console.log(1);
+    const nextRef = query(
+      collection(db, "categories"),
+      startAfter(lastVisible),
+      limit(1)
+    );
+    console.log(1);
+    onSnapshot(nextRef, (snapshot) => {
+      let results = [];
+      snapshot.forEach((doc) => {
+        results.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCategoryList([...categoryList, ...results]);
+    });
+  };
+
   useEffect(() => {
     const colRef = collection(db, "categories");
     const newRef = filter
@@ -48,10 +75,9 @@ const CategoryManage = () => {
           where("name", ">=", filter),
           where("name", "<=", filter + "utf8")
         )
-      : colRef;
+      : query(colRef, limit(1));
     onSnapshot(newRef, (snapshot) => {
       let results = [];
-      setCategoryCount(Number(snapshot.size));
       snapshot.forEach((doc) => {
         results.push({
           id: doc.id,
@@ -120,7 +146,7 @@ const CategoryManage = () => {
                 <td>{category.id}</td>
                 <td>{category.name}</td>
                 <td>
-                  <span className="italic text-gray">{category.slug}</span>
+                  <span className="italic text-gray-400">{category.slug}</span>
                 </td>
                 <td>
                   {Number(category.status) == categoryStatus.APPROVED && (
@@ -147,6 +173,16 @@ const CategoryManage = () => {
             ))}
         </tbody>
       </Table>
+      <div className="load-more-data">
+        <Button
+          type="button"
+          kind="ghost"
+          className="load-more-btn"
+          onClick={loadMoreCategoryHandler}
+        >
+          See more+
+        </Button>
+      </div>
     </CategoryManageStyles>
   );
 };

@@ -8,7 +8,7 @@ const InputStyles = styled.div`
   input {
     width: 100%;
     padding: ${(props) =>
-      props.hasIcon ? "15px 60px 15px 25px" : "15px 25px"};
+      props.hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
     background-color: transparent;
     border-color: 1px solid ${(props) => props.theme.grayf1};
     border-radius: 8px;
@@ -17,12 +17,12 @@ const InputStyles = styled.div`
     font-size: 14px;
   }
   input:-webkit-input-placeholder {
-    color: #84878b;
+    color: #b2b3bd;
     font-weight: 500;
     transition: all 0.2s linear;
   }
   input::-moz-input-placeholder {
-    color: #84878b;
+    color: #b2b3bd;
   }
   .input-icon {
     position: absolute;
