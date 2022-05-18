@@ -1,6 +1,6 @@
 import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
-import { IconDelete, IconEdit, IconWatch } from "components/icon";
+import { IconDelete, IconEdit, IconView } from "components/icon";
 import { Pagination } from "components/pagination";
 import { Table } from "components/table";
 import DashboardHeading from "module/dashboard/DashboardHeading";
@@ -61,7 +61,7 @@ const PostManage = () => {
             </td>
             <td>
               <div className="group-icon">
-                <IconWatch></IconWatch>
+                <IconView></IconView>
                 <IconEdit></IconEdit>
                 <IconDelete></IconDelete>
               </div>

@@ -14,6 +14,7 @@ import UserProfile from "module/user/UserProfile";
 import CategoryAddNew from "module/category/CategoryAddNew";
 import UserManager from "module/user/UserManage";
 import CategoryManage from "module/category/CategoryManage";
+import CategoryUpdate from "module/category/CategoryUpdate";
 
 const App = () => {
   return (
@@ -48,6 +49,10 @@ const App = () => {
             <Route
               path="/manage/add-category"
               element={<CategoryAddNew></CategoryAddNew>}
+            ></Route>
+            <Route
+              path="/manage/update-category"
+              element={<CategoryUpdate></CategoryUpdate>}
             ></Route>
             <Route
               path="/manage/users"

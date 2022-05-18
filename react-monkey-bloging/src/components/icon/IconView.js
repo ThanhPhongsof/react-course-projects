@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconWatch = ({ className = "icon-common", onClick = () => {} }) => {
+const IconView = ({ className = "icon-common", onClick = () => {} }) => {
   return (
     <span className={className} onClick={onClick}>
       <svg
@@ -26,4 +26,4 @@ const IconWatch = ({ className = "icon-common", onClick = () => {} }) => {
   );
 };
 
-export default IconWatch;
+export default IconView;

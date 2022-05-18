@@ -2,6 +2,6 @@ import IconEyeOpen from "./IconEyeOpen";
 import IconEyeClose from "./IconEyeClose";
 import IconEdit from "./IconEdit";
 import IconDelete from "./IconDelete";
-import IconWatch from "./IconWatch";
+import IconView from "./IconView";
 
-export { IconEyeOpen, IconEyeClose, IconWatch, IconEdit, IconDelete };
+export { IconEyeOpen, IconEyeClose, IconView, IconEdit, IconDelete };

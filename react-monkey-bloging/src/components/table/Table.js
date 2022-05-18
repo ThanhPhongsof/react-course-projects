@@ -20,6 +20,9 @@ const TableStylis = styled.div`
     font-weight: 600;
     text-align: left;
   }
+  td {
+    padding: 15px 30px;
+  }
 `;
 
 const Table = ({ children }) => {
