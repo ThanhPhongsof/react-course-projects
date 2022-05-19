@@ -25,4 +25,17 @@ export const categoryStatus = {
   UNAPPROVED: 2,
 };
 
+export const userStatus = {
+  PENDING: 1,
+  ACTIVE: 2,
+  BANNED: 3,
+};
+
+export const userRole = {
+  ADMIN: 1,
+  MODERATOR: 2,
+  EDITOR: 3,
+  USER: 4,
+};
+
 export const limitperPage = 1;

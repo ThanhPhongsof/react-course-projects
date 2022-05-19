@@ -7,13 +7,11 @@ import {
   collection,
   deleteDoc,
   doc,
-  endAt,
   getDocs,
   limit,
   onSnapshot,
   query,
   startAfter,
-  startAt,
   where,
 } from "firebase/firestore";
 import DashboardHeading from "module/dashboard/DashboardHeading";
@@ -22,13 +20,14 @@ import styled from "styled-components";
 import { categoryStatus, limitperPage } from "utils/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { debounce, orderBy } from "lodash";
+import { debounce } from "lodash";
+import { InputSearch } from "components/input";
 
 const CategoryManageStyles = styled.div`
   .search-category {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     input {
       padding: 16px 20px;
       border-width: 1px;
@@ -136,11 +135,10 @@ const CategoryManage = () => {
         </Button>
       </DashboardHeading>
       <div className="search-category">
-        <input
-          type="text"
+        <InputSearch
           placeholder="Search category..."
           onChange={searchCategoryHandler}
-        />
+        ></InputSearch>
       </div>
       <Table>
         <thead>
@@ -153,40 +151,38 @@ const CategoryManage = () => {
           </tr>
         </thead>
         <tbody>
-          {categoryList &&
-            categoryList?.map((category) => (
-              <tr key={category.id}>
-                <td>{category.id}</td>
-                <td>{category.name}</td>
-                <td>
-                  <span className="italic text-gray-400">{category.slug}</span>
-                </td>
-                <td>
-                  {Number(category.status) == categoryStatus.APPROVED && (
-                    <LabelStatus type="success">Approved</LabelStatus>
-                  )}
-                  {Number(category.status) == categoryStatus.UNAPPROVED && (
-                    <LabelStatus type="warning">Unapproved</LabelStatus>
-                  )}
-                </td>
-                <td>
-                  <div className="group-icon">
-                    <IconView></IconView>
-                    <IconEdit
-                      onClick={() =>
-                        navigate(`/manage/update-category?id=${category.id}`)
-                      }
-                    ></IconEdit>
-                    <IconDelete
-                      onClick={() => deleteCategoryHandler(category.id)}
-                    ></IconDelete>
-                  </div>
-                </td>
-              </tr>
-            ))}
+          {categoryList?.map((category, item) => (
+            <tr key={category.id}>
+              <td>{item.id}</td>
+              <td>{category.name}</td>
+              <td>
+                <span className="italic text-gray-400">{category.slug}</span>
+              </td>
+              <td>
+                {Number(category.status) == categoryStatus.APPROVED && (
+                  <LabelStatus type="success">Approved</LabelStatus>
+                )}
+                {Number(category.status) == categoryStatus.UNAPPROVED && (
+                  <LabelStatus type="warning">Unapproved</LabelStatus>
+                )}
+              </td>
+              <td>
+                <div className="group-icon">
+                  <IconEdit
+                    onClick={() =>
+                      navigate(`/manage/update-category?id=${category.id}`)
+                    }
+                  ></IconEdit>
+                  <IconDelete
+                    onClick={() => deleteCategoryHandler(category.id)}
+                  ></IconDelete>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
-      {total > categoryList.length && (
+      {total > categoryList?.length && (
         <div className="load-more-data">
           <Button
             type="button"

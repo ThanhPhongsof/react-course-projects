@@ -51,6 +51,8 @@ const SignUpPage = () => {
         email: values.email,
         password: values.password,
         username: slugify(values.fullname, { lower: true }),
+        status: 1,
+        role: 4,
       });
       toast.success("Register successfully !");
       navigate("/");

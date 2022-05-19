@@ -63,7 +63,7 @@ const App = () => {
               element={<UserAddNew></UserAddNew>}
             ></Route>
             <Route
-              path="/profile"
+              path="/manage/update-user"
               element={<UserProfile></UserProfile>}
             ></Route>
           </Route>

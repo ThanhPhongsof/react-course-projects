@@ -1,2 +1,4 @@
 import Input from "./Input";
-export { Input };
+import InputSearch from "./InputSearch";
+
+export { Input, InputSearch };
