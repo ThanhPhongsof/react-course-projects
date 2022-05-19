@@ -19,7 +19,7 @@ import {
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { categoryStatus } from "utils/constants";
+import { categoryStatus, limitperPage } from "utils/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { debounce, orderBy } from "lodash";
@@ -42,19 +42,16 @@ const CategoryManage = () => {
   const [categoryList, setCategoryList] = useState();
   const navigate = useNavigate();
   const [filter, setFilter] = useState();
+  const [lastDoc, setLastDoc] = useState();
+  const [total, setTotal] = useState(0);
 
   const loadMoreCategoryHandler = async () => {
-    const first = query(collection(db, "categories"), limit(1));
-    const documentSnapshots = await getDocs(first);
-    const lastVisible =
-      documentSnapshots.docs[documentSnapshots.docs.length - 1];
-    console.log(1);
+    if (!lastDoc) return;
     const nextRef = query(
       collection(db, "categories"),
-      startAfter(lastVisible),
-      limit(1)
+      startAfter(lastDoc),
+      limit(limitperPage)
     );
-    console.log(1);
     onSnapshot(nextRef, (snapshot) => {
       let results = [];
       snapshot.forEach((doc) => {
@@ -65,27 +62,43 @@ const CategoryManage = () => {
       });
       setCategoryList([...categoryList, ...results]);
     });
+    const documentSnapshots = await getDocs(nextRef);
+    const lastVisible =
+      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    setLastDoc(lastVisible || "");
   };
 
   useEffect(() => {
-    const colRef = collection(db, "categories");
-    const newRef = filter
-      ? query(
-          colRef,
-          where("name", ">=", filter),
-          where("name", "<=", filter + "utf8")
-        )
-      : query(colRef, limit(1));
-    onSnapshot(newRef, (snapshot) => {
-      let results = [];
-      snapshot.forEach((doc) => {
-        results.push({
-          id: doc.id,
-          ...doc.data(),
-        });
+    async function fetchData() {
+      const colRef = collection(db, "categories");
+      const newRef = filter
+        ? query(
+            colRef,
+            where("name", ">=", filter),
+            where("name", "<=", filter + "utf8")
+          )
+        : query(colRef, limit(limitperPage));
+      const documentSnapshots = await getDocs(newRef);
+      const lastVisible =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+
+      onSnapshot(colRef, (snapshot) => {
+        setTotal(snapshot.size);
       });
-      setCategoryList(results);
-    });
+
+      onSnapshot(newRef, (snapshot) => {
+        let results = [];
+        snapshot.forEach((doc) => {
+          results.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setCategoryList(results);
+      });
+      setLastDoc(lastVisible);
+    }
+    fetchData();
   }, [filter]);
 
   const deleteCategoryHandler = async (docId) => {
@@ -173,16 +186,18 @@ const CategoryManage = () => {
             ))}
         </tbody>
       </Table>
-      <div className="load-more-data">
-        <Button
-          type="button"
-          kind="ghost"
-          className="load-more-btn"
-          onClick={loadMoreCategoryHandler}
-        >
-          See more+
-        </Button>
-      </div>
+      {total > categoryList.length && (
+        <div className="load-more-data">
+          <Button
+            type="button"
+            kind="ghost"
+            className="load-more-btn"
+            onClick={loadMoreCategoryHandler}
+          >
+            See more+
+          </Button>
+        </div>
+      )}
     </CategoryManageStyles>
   );
 };
