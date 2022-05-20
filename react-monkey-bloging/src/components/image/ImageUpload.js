@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 
+import PropTypes from "prop-types";
+
 const ImageUploadStyles = styled.label`
   display: flex;
   align-items: center;
@@ -144,6 +146,13 @@ const ImageUpload = ({
       )}
     </ImageUploadStyles>
   );
+};
+
+ImageUpload.propTypes = {
+  name: PropTypes.string,
+  className: PropTypes.string,
+  progress: PropTypes.number,
+  image: PropTypes.string,
 };
 
 export default ImageUpload;

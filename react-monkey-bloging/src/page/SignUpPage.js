@@ -11,10 +11,17 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import slugify from "slugify";
+import { userRole, userStatus } from "utils/constants";
 
 const schema = yup.object({
   fullname: yup.string().required("Please enter your fullname"),
@@ -42,18 +49,27 @@ const SignUpPage = () => {
 
   const handleSignUp = async (values) => {
     if (!isValid) return;
+    console.log(1);
     try {
+      await createUserWithEmailAndPassword(auth, values.email, values.password);
       await updateProfile(auth.currentUser, {
         displayName: values.fullname,
+        photoURL:
+          "https://images.unsplash.com/photo-1516205651411-aef33a44f7c2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764",
       });
+      console.log(2);
       await setDoc(doc(db, "users", auth.currentUser.uid), {
         fullname: values.fullname,
         email: values.email,
         password: values.password,
         username: slugify(values.fullname, { lower: true }),
-        status: 1,
-        role: 4,
+        status: userStatus.ACTIVE,
+        role: userRole.USER,
+        avatar:
+          "https://images.unsplash.com/photo-1516205651411-aef33a44f7c2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764",
+        createdAt: serverTimestamp(),
       });
+      console.log(3);
       toast.success("Register successfully !");
       navigate("/");
     } catch (err) {

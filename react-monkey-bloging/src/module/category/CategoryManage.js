@@ -143,7 +143,7 @@ const CategoryManage = () => {
       <Table>
         <thead>
           <tr>
-            <th>Id</th>
+            <th>#</th>
             <th>Name</th>
             <th>Slug</th>
             <th>Status</th>
@@ -151,9 +151,9 @@ const CategoryManage = () => {
           </tr>
         </thead>
         <tbody>
-          {categoryList?.map((category, item) => (
+          {categoryList?.map((category, index) => (
             <tr key={category.id}>
-              <td>{item.id}</td>
+              <td>{index + 1}</td>
               <td>{category.name}</td>
               <td>
                 <span className="italic text-gray-400">{category.slug}</span>
