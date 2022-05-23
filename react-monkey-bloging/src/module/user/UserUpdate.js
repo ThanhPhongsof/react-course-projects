@@ -58,23 +58,32 @@ const UserUpdate = () => {
   const watchStatus = watch("status");
   const watchRole = watch("role");
   const imageUrl = getValues("avartar");
+  const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
+  const image_name = imageRegex?.length > 0 ? imageRegex[1] : "";
+
+  const {
+    image,
+    progress,
+    setImage,
+    handleResetUpload,
+    handleSelecteImage,
+    handleDeleteImage,
+  } = useFirebaseImage(setValue, getValues, image_name, deleteAvartar);
+
+  async function deleteAvartar() {
+    const colRef = doc(db, "users", userId);
+    await updateDoc(colRef, {
+      avartar: "",
+    });
+  }
 
   const updateUserHandler = async (values) => {
     if (!isValid) return;
     try {
       const colRef = doc(db, "users", userId);
       await updateDoc(colRef, {
-        fullname: values.fullname,
-        email: values.email,
-        password: values.password,
-        username: slugify(values.username || values.fullname, {
-          lower: true,
-          replacement: " ",
-          trim: true,
-        }),
+        ...values,
         avartar: image,
-        status: Number(values.status),
-        role: Number(values.role),
       });
       toast.success(`Update user successfully!`);
       navigate("/manage/users");
@@ -82,6 +91,10 @@ const UserUpdate = () => {
       toast.error(err);
     }
   };
+
+  useEffect(() => {
+    setImage(imageUrl);
+  }, [imageUrl, setImage]);
 
   useEffect(() => {
     async function fetchData() {
@@ -93,14 +106,6 @@ const UserUpdate = () => {
     fetchData();
   }, [userId, reset]);
 
-  const {
-    image,
-    progress,
-    handleResetUpload,
-    handleSelecteImage,
-    handleDeleteImage,
-  } = useFirebaseImage(setValue, getValues);
-
   return (
     <UserUpdateStyles>
       <DashboardHeading
@@ -111,7 +116,7 @@ const UserUpdate = () => {
         <div className="form-img">
           <ImageUpload
             className="form-img-upload"
-            image={imageUrl}
+            image={image}
             progress={progress}
             onChange={handleSelecteImage}
             handleDeleteImage={handleDeleteImage}

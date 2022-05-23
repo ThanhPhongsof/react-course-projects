@@ -8,7 +8,12 @@ import {
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function useFirebaseImage(setValue, getValues) {
+export default function useFirebaseImage(
+  setValue,
+  getValues,
+  imageName = null,
+  callBackHanlder
+) {
   const [progress, setProgress] = useState(0);
   const [image, setImage] = useState("");
   if (!setValue || !getValues) return;
@@ -54,12 +59,16 @@ export default function useFirebaseImage(setValue, getValues) {
 
   const handleDeleteImage = () => {
     const storage = getStorage();
-    const desertRef = ref(storage, "images/" + getValues("image_name"));
+    const desertRef = ref(
+      storage,
+      "images/" + (imageName || getValues("image_name"))
+    );
     deleteObject(desertRef)
       .then(() => {
         console.log("Remove image successfully");
         setImage("");
         setProgress(0);
+        callBackHanlder && callBackHanlder();
       })
       .catch((error) => {
         console.log("Can not delete image");
@@ -74,6 +83,7 @@ export default function useFirebaseImage(setValue, getValues) {
   return {
     image,
     progress,
+    setImage,
     handleSelecteImage,
     handleDeleteImage,
     handleResetUpload,
