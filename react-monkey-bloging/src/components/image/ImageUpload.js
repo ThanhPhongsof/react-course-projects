@@ -11,6 +11,7 @@ const ImageUploadStyles = styled.label`
   border-width: 1px;
   border-style: dashed;
   width: 100%;
+  height: 100%;
   min-height: 200px;
   position: relative;
   overflow: hidden;

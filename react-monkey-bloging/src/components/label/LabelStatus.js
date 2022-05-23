@@ -53,7 +53,17 @@ const LabelStatus = ({ children, type = "default" }) => {
 
 LabelStatus.propTypes = {
   children: PropTypes.node,
-  type: PropTypes.oneOf(["success", "warning", "danger", "default"]).isRequired,
+  type: PropTypes.oneOf([
+    "success",
+    "warning",
+    "danger",
+    "default",
+    "inverse",
+    "primary",
+    "info",
+    "purple",
+    "pink",
+  ]).isRequired,
 };
 
 export default LabelStatus;

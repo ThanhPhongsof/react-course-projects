@@ -39,16 +39,6 @@ const UserManage = () => {
         ></InputSearch>
       </div>
       <UserTable></UserTable>
-      <div className="load-more-data">
-        <Button
-          type="button"
-          kind="ghost"
-          className="load-more-btn"
-          onClick={() => {}}
-        >
-          See more+
-        </Button>
-      </div>
     </UserManageStyles>
   );
 };

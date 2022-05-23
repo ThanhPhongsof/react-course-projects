@@ -2,18 +2,54 @@ import { IconDelete, IconEdit } from "components/icon";
 import { LabelStatus } from "components/label";
 import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
-import { collection, limit, onSnapshot, query } from "firebase/firestore";
+import { deleteUser } from "firebase/auth";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  limit,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import { limitperPage, userRole, userStatus } from "utils/constants";
 
 const UserTable = () => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState();
 
+  const deleteUserHandler = async (user) => {
+    const colRef = doc(db, "users", user.id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteDoc(colRef);
+          Swal.fire("Deleted!", "User has been deleted.", "success");
+        } catch (error) {
+          Swal.fire(
+            "Deleted Fail!",
+            `User hasn't been deleted. ${error.message}`,
+            "danger"
+          );
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     const colRef = collection(db, "users");
-    const queries = query(colRef, limit(limitperPage));
+    const queries = query(colRef);
 
     onSnapshot(queries, (snapshot) => {
       let result = [];
@@ -75,7 +111,7 @@ const UserTable = () => {
             <td className="whitespace-nowrap">
               <div className="flex items-center gap-x-3">
                 <img
-                  src={user.avatar}
+                  src={user.avartar}
                   className="flex-shrink-0 object-cover w-10 h-10 rounded-md"
                   alt=""
                 />
@@ -100,7 +136,7 @@ const UserTable = () => {
                   onClick={() => navigate(`/manage/update-user?id=${user.id}`)}
                 ></IconEdit>
                 <IconDelete
-                // onClick={() => deleteUserHandler(category.id)}
+                  onClick={() => deleteUserHandler(user)}
                 ></IconDelete>
               </div>
             </td>

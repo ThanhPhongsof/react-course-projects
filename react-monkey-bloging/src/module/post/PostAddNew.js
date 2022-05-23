@@ -42,7 +42,6 @@ const PostAddNew = () => {
     },
   });
   const watchStatus = watch("status");
-  const watchCategory = watch("category");
   const [loading, setLoading] = useState(false);
   const watchHot = watch("hot");
   const {

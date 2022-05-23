@@ -6,18 +6,26 @@ import { Input } from "components/input";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import { Label } from "components/label";
 import DashboardHeading from "module/dashboard/DashboardHeading";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { userRole, userStatus } from "utils/constants";
 import useFirebaseImage from "hooks/useFirebaseImage";
 import { auth, db } from "firebase-app/firebase-config";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { toast } from "react-toastify";
 import slugify from "slugify";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const UserAddNewStyles = styled.div`
+const UserUpdateStyles = styled.div`
   .form-img {
     margin-bottom: 40px;
     width: 200px;
@@ -31,7 +39,11 @@ const UserAddNewStyles = styled.div`
   }
 `;
 
-const UserAddNew = () => {
+const UserUpdate = () => {
+  const [params] = useSearchParams();
+  const userId = params.get("id");
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -45,13 +57,13 @@ const UserAddNew = () => {
   });
   const watchStatus = watch("status");
   const watchRole = watch("role");
+  const imageUrl = getValues("avartar");
 
-  const addUserNewHandler = async (values) => {
-    console.log(values);
+  const updateUserHandler = async (values) => {
     if (!isValid) return;
     try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
-      await addDoc(collection(db, "users"), {
+      const colRef = doc(db, "users", userId);
+      await updateDoc(colRef, {
         fullname: values.fullname,
         email: values.email,
         password: values.password,
@@ -63,26 +75,23 @@ const UserAddNew = () => {
         avartar: image,
         status: Number(values.status),
         role: Number(values.role),
-        createdAt: serverTimestamp(),
       });
-      toast.success(
-        `Create new user with email: ${values.email} successfully!`
-      );
-      reset({
-        fullname: "",
-        email: "",
-        password: "",
-        username: "",
-        avartar: "",
-        status: userStatus.PENDING,
-        role: userRole.USER,
-        createdAt: serverTimestamp(),
-      });
-      handleResetUpload();
+      toast.success(`Update user successfully!`);
+      navigate("/manage/users");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err);
     }
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!userId) return;
+      const colRef = doc(db, "users", userId);
+      const docData = await getDoc(colRef);
+      reset(docData && docData.data());
+    }
+    fetchData();
+  }, [userId, reset]);
 
   const {
     image,
@@ -93,16 +102,16 @@ const UserAddNew = () => {
   } = useFirebaseImage(setValue, getValues);
 
   return (
-    <UserAddNewStyles>
+    <UserUpdateStyles>
       <DashboardHeading
-        title="New user"
-        desc="Add new user to system"
+        title="Update user"
+        desc={`Update user id: ${userId}`}
       ></DashboardHeading>
-      <form onSubmit={handleSubmit(addUserNewHandler)}>
+      <form onSubmit={handleSubmit(updateUserHandler)}>
         <div className="form-img">
           <ImageUpload
             className="form-img-upload"
-            image={image}
+            image={imageUrl}
             progress={progress}
             onChange={handleSelecteImage}
             handleDeleteImage={handleDeleteImage}
@@ -215,11 +224,11 @@ const UserAddNew = () => {
           isLoading={isSubmitting}
           disabled={isSubmitting}
         >
-          Add new user
+          Update user
         </Button>
       </form>
-    </UserAddNewStyles>
+    </UserUpdateStyles>
   );
 };
 
-export default UserAddNew;
+export default UserUpdate;
