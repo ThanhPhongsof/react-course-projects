@@ -1,11 +1,15 @@
 import Heading from "components/layout/Heading";
 import Layout from "components/layout/Layout";
+import { db } from "firebase-app/firebase-config";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import PostCategory from "module/post/PostCategory";
 import PostImage from "module/post/PostImage";
 import PostItem from "module/post/PostItem";
 import PostMeta from "module/post/PostMeta";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PageNotFound from "./PageNotFound";
 
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
@@ -92,6 +96,25 @@ const PostDetailsPageStyles = styled.div`
 `;
 
 const PostDetailsPage = () => {
+  const { slug } = useParams();
+  const [postInfo, setPostInfo] = useState({});
+
+  useEffect(() => {
+    async function fetchPostData() {
+      if (!slug) return;
+      const colRef = query(collection(db, "posts"), where("slug", "==", slug));
+      onSnapshot(colRef, (snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.data() && setPostInfo(doc.data());
+        });
+      });
+    }
+    fetchPostData();
+  }, [slug]);
+
+  if (!slug) return <PageNotFound></PageNotFound>;
+  if (!postInfo.title) return null;
+
   return (
     <PostDetailsPageStyles>
       <Layout>

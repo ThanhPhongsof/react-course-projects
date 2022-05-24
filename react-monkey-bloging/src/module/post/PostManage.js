@@ -16,6 +16,7 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
+import { debounce } from "lodash";
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -114,6 +115,10 @@ const PostManage = () => {
     });
   };
 
+  const searchPostHandler = debounce((e) => {
+    setFilter(e.target.value);
+  }, 250);
+
   const renderLabelStatus = (status) => {
     switch (status) {
       case postStatus.PENDING:
@@ -133,11 +138,14 @@ const PostManage = () => {
         title="All posts"
         desc="Manage all posts"
       ></DashboardHeading>
-      <div className="flex justify-end gap-5 mb-10">
-        <div className="w-full max-w-[200px]">
-          <Dropdown>
-            <Dropdown.Select placeholder="Category"></Dropdown.Select>
-          </Dropdown>
+      <div className="flex justify-start gap-5 mb-10">
+        <div className="w-full max-w-[300px]">
+          <input
+            type="text"
+            className="w-full p-4 border border-gray-300 border-solid rounded-lg"
+            placeholder="Search post..."
+            onChange={(e) => searchPostHandler(e)}
+          />
         </div>
       </div>
       <Table>
@@ -184,8 +192,14 @@ const PostManage = () => {
               <td>{renderLabelStatus(Number(post?.status))}</td>
               <td>
                 <div className="group-icon">
-                  <IconView></IconView>
-                  <IconEdit></IconEdit>
+                  <IconView
+                    onClick={() => navigate(`/${post.slug}`)}
+                  ></IconView>
+                  <IconEdit
+                    onClick={() =>
+                      navigate(`/manage/update-post?id=${post.id}`)
+                    }
+                  ></IconEdit>
                   <IconDelete
                     onClick={() => deletePostHandler(post.id)}
                   ></IconDelete>

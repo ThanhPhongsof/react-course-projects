@@ -31,7 +31,15 @@ const PostAddNewStyles = styled.div``;
 
 const PostAddNew = () => {
   const { userInfo } = useAuth();
-  const { control, watch, setValue, getValues, handleSubmit, reset } = useForm({
+  const {
+    control,
+    watch,
+    setValue,
+    getValues,
+    handleSubmit,
+    reset,
+    isSubmitting,
+  } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
@@ -44,7 +52,6 @@ const PostAddNew = () => {
     },
   });
   const watchStatus = watch("status");
-  const [loading, setLoading] = useState(false);
   const watchHot = watch("hot");
 
   useEffect(() => {
@@ -73,7 +80,6 @@ const PostAddNew = () => {
     handleResetUpload,
   } = useFirebaseImage(setValue, getValues);
   const addPostHandler = async (values) => {
-    setLoading(true);
     try {
       const cloneValues = { ...values };
       cloneValues.slug = slugify(cloneValues.slug || cloneValues.title, {
@@ -99,10 +105,7 @@ const PostAddNew = () => {
       setSelectCategory({});
       handleResetUpload();
     } catch (err) {
-      setLoading(false);
       toast.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -110,7 +113,7 @@ const PostAddNew = () => {
   const [selectCategory, setSelectCategory] = useState("");
 
   useEffect(() => {
-    async function getData() {
+    async function getCategoriesData() {
       const colRel = collection(db, "categories");
       const q = query(colRel, where("status", "==", 1));
       const querySnapshot = await getDocs(q);
@@ -123,7 +126,7 @@ const PostAddNew = () => {
       });
       setCategories(result);
     }
-    getData();
+    getCategoriesData();
   }, []);
 
   useEffect(() => {
@@ -237,8 +240,8 @@ const PostAddNew = () => {
         <Button
           type="submit"
           className="mx-auto w-[250px]"
-          isLoading={loading}
-          disabled={loading}
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
         >
           Add new post
         </Button>

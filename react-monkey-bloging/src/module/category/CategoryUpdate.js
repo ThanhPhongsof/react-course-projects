@@ -35,8 +35,8 @@ const CategoryUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const colRef = doc(db, "categories", cateogryId);
-      const singleDoc = await getDoc(colRef);
+      const docRef = doc(db, "categories", cateogryId);
+      const singleDoc = await getDoc(docRef);
       reset(singleDoc.data());
     }
     fetchData();
