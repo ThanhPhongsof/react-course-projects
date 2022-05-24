@@ -2,7 +2,6 @@ import { IconDelete, IconEdit } from "components/icon";
 import { LabelStatus } from "components/label";
 import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
-import { deleteUser } from "firebase/auth";
 import {
   collection,
   deleteDoc,
@@ -13,7 +12,6 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { limitperPage, userRole, userStatus } from "utils/constants";
 
