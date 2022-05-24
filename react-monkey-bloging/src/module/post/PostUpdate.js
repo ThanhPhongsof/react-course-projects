@@ -18,15 +18,19 @@ import {
 } from "firebase/firestore";
 import useFirebaseImage from "hooks/useFirebaseImage";
 import DashboardHeading from "module/dashboard/DashboardHeading";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { postStatus } from "utils/constants";
+import { API_KEY_IMAGEUPLOAD, postStatus } from "utils/constants";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import ImageUploader from "quill-image-uploader";
+import { toast } from "react-toastify";
 
 const PostUpdateStyles = styled.div``;
+
+Quill.register("modules/imageUploader", ImageUploader);
 
 const PostUpdate = () => {
   const [params] = useSearchParams();
@@ -40,6 +44,7 @@ const PostUpdate = () => {
     handleSubmit,
     reset,
     isSubmitting,
+    isValid,
   } = useForm({
     mode: "onChange",
   });
@@ -71,6 +76,7 @@ const PostUpdate = () => {
       if (singleDoc.data()) {
         reset(singleDoc.data());
         setSelectCategory(singleDoc.data()?.category || "");
+        setContent(singleDoc.data()?.content || "");
       }
     }
     fetchData();
@@ -107,11 +113,17 @@ const PostUpdate = () => {
     document.title = "Monkey Blogging - Update post";
   }, []);
 
-  const updatePostHandler = async (value) => {
-    if (!isValid) return;
+  const updatePostHandler = async (values) => {
     try {
       const docRef = doc(db, "posts", postId);
-      await updateDoc(docRef, {});
+      await updateDoc(docRef, {
+        // title: values.title,
+        // slug: slugify(values.slug || values.title, { lower: true }),
+        // status: Number(values.status),
+        content,
+      });
+      toast.success("Update post successfully!");
+      navigate("/manage/posts");
     } catch (err) {
       toast.error(err.message);
     }
@@ -127,6 +139,29 @@ const PostUpdate = () => {
   useEffect(() => {
     setImage(imageUrl);
   }, [imageUrl, setImage]);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link", "image"],
+      ],
+      ImageUploader: {
+        upload: (file) => {
+          return new Promise((resolve, reject) => {
+            resolve(
+              `https://api.imgbb.com/1/upload?key=${API_KEY_IMAGEUPLOAD}`
+            );
+          });
+        },
+      },
+    }),
+    []
+  );
 
   if (!postId) return;
   return (
@@ -192,7 +227,12 @@ const PostUpdate = () => {
           <Field>
             <Label>Content</Label>
             <div className="w-full entry-content">
-              <ReactQuill theme="snow" value={content} onChange={setContent} />
+              <ReactQuill
+                modules={modules}
+                theme="snow"
+                value={content}
+                onChange={setContent}
+              />
             </div>
           </Field>
         </div>
@@ -240,7 +280,7 @@ const PostUpdate = () => {
           isLoading={isSubmitting}
           disabled={isSubmitting}
         >
-          Add new post
+          Update post
         </Button>
       </form>
     </PostUpdateStyles>
