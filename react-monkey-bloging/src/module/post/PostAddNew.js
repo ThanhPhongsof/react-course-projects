@@ -13,9 +13,11 @@ import ImageUpload from "components/image/ImageUpload";
 import useFirebaseImage from "hooks/useFirebaseImage";
 import { Toggle } from "components/toggle";
 import {
+  doc,
   addDoc,
   collection,
   getDocs,
+  getDoc,
   query,
   serverTimestamp,
   where,
@@ -35,15 +37,34 @@ const PostAddNew = () => {
       title: "",
       slug: "",
       status: 2,
-      categoryId: "",
       hot: false,
       image: "",
       createdAt: serverTimestamp(),
+      category: {},
     },
   });
   const watchStatus = watch("status");
   const [loading, setLoading] = useState(false);
   const watchHot = watch("hot");
+
+  useEffect(() => {
+    async function fetchUserData() {
+      if (!userInfo.email) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", userInfo.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setValue("user", {
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    }
+    fetchUserData();
+  }, [userInfo.uid]);
+
   const {
     image,
     progress,
@@ -71,9 +92,9 @@ const PostAddNew = () => {
         title: "",
         slug: "",
         status: 2,
-        categoryId: "",
         hot: false,
         image: "",
+        category: {},
       });
       setSelectCategory({});
       handleResetUpload();
@@ -109,8 +130,13 @@ const PostAddNew = () => {
     document.title = "Monkey Blogging - Add new post";
   }, []);
 
-  const hamdleClickOption = (item) => {
-    setValue("categoryId", item.id);
+  const hamdleClickOption = async (item) => {
+    const colRef = doc(db, "categories", item.id);
+    const categoryData = await getDoc(colRef);
+    setValue("category", {
+      id: categoryData.id,
+      ...categoryData.data(),
+    });
     setSelectCategory(item);
   };
 
