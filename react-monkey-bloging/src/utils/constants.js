@@ -38,4 +38,4 @@ export const userRole = {
   USER: 4,
 };
 
-export const limitperPage = 1;
+export const limitperPage = 5;

@@ -7,6 +7,8 @@ import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
 import {
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   limit,
   onSnapshot,
@@ -18,6 +20,7 @@ import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { limitperPage, postStatus } from "utils/constants";
 
 const PostManageStyles = styled.div``;
@@ -85,6 +88,32 @@ const PostManage = () => {
     fetchData();
   }, [filter]);
 
+  const deletePostHandler = async (postId) => {
+    const docRef = doc(db, "posts", postId);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteDoc(docRef);
+          Swal.fire("Deleted!", "Post has been deleted.", "success");
+        } catch (error) {
+          Swal.fire(
+            "Deleted Fail!",
+            `Post hasn't been deleted. ${error.message}`,
+            "danger"
+          );
+        }
+      }
+    });
+  };
+
   const renderLabelStatus = (status) => {
     switch (status) {
       case postStatus.PENDING:
@@ -133,8 +162,8 @@ const PostManage = () => {
                     alt={post.name}
                     className="w-[66px] h-[55px] rounded object-cover"
                   />
-                  <div className="flex-1">
-                    <h3 className="font-semibold max-w-[100px] whitespace-nowrap">
+                  <div className="flex-1 whitespace-pre-wrap">
+                    <h3 className="font-semibold max-w-[300px] ">
                       {post.title}
                     </h3>
                     <time className="text-sm text-gray-500">
@@ -157,7 +186,9 @@ const PostManage = () => {
                 <div className="group-icon">
                   <IconView></IconView>
                   <IconEdit></IconEdit>
-                  <IconDelete></IconDelete>
+                  <IconDelete
+                    onClick={() => deletePostHandler(post.id)}
+                  ></IconDelete>
                 </div>
               </td>
             </tr>

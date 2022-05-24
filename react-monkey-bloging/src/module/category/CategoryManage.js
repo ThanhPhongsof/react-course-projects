@@ -101,7 +101,7 @@ const CategoryManage = () => {
   }, [filter]);
 
   const deleteCategoryHandler = async (docId) => {
-    const colRef = doc(db, "categories", docId);
+    const docRef = doc(db, "categories", docId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -112,7 +112,7 @@ const CategoryManage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteDoc(colRef);
+        await deleteDoc(docRef);
         Swal.fire("Deleted!", "Category has been deleted.", "success");
       }
     });
