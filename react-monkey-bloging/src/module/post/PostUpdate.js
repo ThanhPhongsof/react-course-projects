@@ -20,21 +20,23 @@ import useFirebaseImage from "hooks/useFirebaseImage";
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { API_KEY_IMAGEUPLOAD, postStatus } from "utils/constants";
+import { imageAPI, postStatus } from "utils/constants";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageUploader from "quill-image-uploader";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const PostUpdateStyles = styled.div``;
 
-Quill.register("modules/imageUploader", ImageUploader);
+Quill.register("modules/ImageUploader", ImageUploader);
 
 const PostUpdate = () => {
   const [params] = useSearchParams();
   const postId = params.get("id");
+  const navigate = useNavigate();
 
   const {
     control,
@@ -43,8 +45,7 @@ const PostUpdate = () => {
     getValues,
     handleSubmit,
     reset,
-    isSubmitting,
-    isValid,
+    formState: { isValid, isSubmitting },
   } = useForm({
     mode: "onChange",
   });
@@ -114,13 +115,13 @@ const PostUpdate = () => {
   }, []);
 
   const updatePostHandler = async (values) => {
+    if (!isValid) return;
     try {
       const docRef = doc(db, "posts", postId);
       await updateDoc(docRef, {
-        // title: values.title,
-        // slug: slugify(values.slug || values.title, { lower: true }),
-        // status: Number(values.status),
+        ...values,
         content,
+        image,
       });
       toast.success("Update post successfully!");
       navigate("/manage/posts");
@@ -151,12 +152,18 @@ const PostUpdate = () => {
         ["link", "image"],
       ],
       ImageUploader: {
-        upload: (file) => {
-          return new Promise((resolve, reject) => {
-            resolve(
-              `https://api.imgbb.com/1/upload?key=${API_KEY_IMAGEUPLOAD}`
-            );
+        upload: async (file) => {
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", file);
+          const response = await axios({
+            method: "post",
+            url: imageAPI,
+            data: bodyFormData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           });
+          return response.data.data.url;
         },
       },
     }),

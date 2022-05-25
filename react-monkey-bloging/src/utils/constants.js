@@ -40,4 +40,5 @@ export const userRole = {
 
 export const limitperPage = 5;
 
-export const API_KEY_IMAGEUPLOAD = "9ed13d4d069b7d722e3ca048565a77cf";
+export const imageAPI =
+  "https://api.imgbb.com/1/upload?key=9ed13d4d069b7d722e3ca048565a77cf";

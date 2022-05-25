@@ -38,7 +38,7 @@ const PostAddNew = () => {
     getValues,
     handleSubmit,
     reset,
-    isSubmitting,
+    formState: { isValid, isSubmitting },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -80,6 +80,7 @@ const PostAddNew = () => {
     handleResetUpload,
   } = useFirebaseImage(setValue, getValues);
   const addPostHandler = async (values) => {
+    if (!isValid) return;
     try {
       const cloneValues = { ...values };
       cloneValues.slug = slugify(cloneValues.slug || cloneValues.title, {
