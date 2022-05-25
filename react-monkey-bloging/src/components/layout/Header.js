@@ -14,6 +14,7 @@ const HeaderStyles = styled.header`
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-left: auto;
   }
   .logo {
     display: block;
@@ -35,6 +36,7 @@ const HeaderStyles = styled.header`
     width: 100%;
     max-width: 320px;
     display: flex;
+    display: none;
     align-items: center;
     position: relative;
     margin-right: 20px;

@@ -1,4 +1,5 @@
 import React from "react";
+import slugify from "slugify";
 import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
@@ -34,18 +35,24 @@ const PostItemStyles = styled.div`
   }
 `;
 
-const PostItem = () => {
+const PostItem = ({ data }) => {
+  if (!data) return null;
   return (
     <PostItemStyles>
-      <PostImage
-        url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="pexels"
-      ></PostImage>
-      <PostCategory>ReactJS</PostCategory>
-      <PostTitle className="post-title">
-        The complete guide to learn new languages for beginners
+      <PostImage url={data.image} alt={data.title} to={data.slug}></PostImage>
+      <PostCategory to={data.category?.slug}>
+        {data.category?.name}
+      </PostCategory>
+      <PostTitle to={data.slug} className="post-title">
+        {data.title}
       </PostTitle>
-      <PostMeta></PostMeta>
+      <PostMeta
+        to={data.user?.username}
+        authorName={data.user.username}
+        date={new Date(data.createdAt?.seconds * 1000).toLocaleDateString(
+          "vi-VI"
+        )}
+      ></PostMeta>
     </PostItemStyles>
   );
 };

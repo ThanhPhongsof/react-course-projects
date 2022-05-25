@@ -28,12 +28,15 @@ import "react-quill/dist/quill.snow.css";
 import ImageUploader from "quill-image-uploader";
 import { toast } from "react-toastify";
 import axios from "axios";
+import slugify from "slugify";
+import { useAuth } from "contexts/auth-context";
 
 const PostUpdateStyles = styled.div``;
 
 Quill.register("modules/ImageUploader", ImageUploader);
 
 const PostUpdate = () => {
+  const { userInfo } = useAuth();
   const [params] = useSearchParams();
   const postId = params.get("id");
   const navigate = useNavigate();
@@ -100,6 +103,24 @@ const PostUpdate = () => {
     getCategoriesData();
   }, []);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      if (!userInfo.email) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", userInfo.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setValue("user", {
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    }
+    fetchUserData();
+  }, [userInfo.uid]);
+
   const hamdleClickOption = async (item) => {
     const colRef = doc(db, "categories", item.id);
     const categoryData = await getDoc(colRef);
@@ -117,10 +138,15 @@ const PostUpdate = () => {
   const updatePostHandler = async (values) => {
     if (!isValid) return;
     try {
+      const cloneValues = { ...values };
+      cloneValues.slug = slugify(cloneValues.slug || cloneValues.title, {
+        lower: true,
+      });
       const docRef = doc(db, "posts", postId);
       await updateDoc(docRef, {
         ...values,
-        status: Number(values.status),
+        categoryId: cloneValues.category.id,
+        userId: cloneValues.user.id,
         content,
         image,
       });

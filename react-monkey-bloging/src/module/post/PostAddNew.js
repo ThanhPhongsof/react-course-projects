@@ -5,7 +5,7 @@ import { Field, FieldCheckboxes } from "components/field";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { Button } from "components/button";
-import { Checkbox, Radio } from "components/checkbox";
+import { Radio } from "components/checkbox";
 import { Dropdown } from "components/dropdown";
 import slugify from "slugify";
 import { postStatus } from "utils/constants";
@@ -24,8 +24,8 @@ import {
 } from "firebase/firestore";
 import { db } from "firebase-app/firebase-config";
 import { toast } from "react-toastify";
-import { useAuth } from "contexts/auth-context";
 import DashboardHeading from "module/dashboard/DashboardHeading";
+import { useAuth } from "contexts/auth-context";
 
 const PostAddNewStyles = styled.div``;
 
@@ -91,7 +91,8 @@ const PostAddNew = () => {
       await addDoc(colRef, {
         ...cloneValues,
         image,
-        userId: userInfo.uid,
+        categoryId: cloneValues.category.id,
+        userId: cloneValues.user.id,
         createdAt: serverTimestamp(),
       });
       toast.success("Create new post successfully!");

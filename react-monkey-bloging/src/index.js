@@ -13,15 +13,15 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles></GlobalStyles>
-      <BrowserRouter>
-        <App />
-        <ToastContainer></ToastContainer>
-      </BrowserRouter>
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <GlobalStyles></GlobalStyles>
+    <BrowserRouter>
+      <App />
+      <ToastContainer></ToastContainer>
+    </BrowserRouter>
+  </ThemeProvider>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

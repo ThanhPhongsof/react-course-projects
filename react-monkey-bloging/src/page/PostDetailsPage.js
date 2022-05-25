@@ -1,10 +1,8 @@
-import Heading from "components/layout/Heading";
 import Layout from "components/layout/Layout";
 import { db } from "firebase-app/firebase-config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import PostCategory from "module/post/PostCategory";
 import PostImage from "module/post/PostImage";
-import PostItem from "module/post/PostItem";
 import PostMeta from "module/post/PostMeta";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,6 +10,7 @@ import styled from "styled-components";
 import PageNotFound from "./PageNotFound";
 import parse from "html-react-parser";
 import AuthorBox from "components/author/AuthorBox";
+import PosrRelated from "module/post/PosrRelated";
 
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
@@ -117,7 +116,11 @@ const PostDetailsPage = () => {
     fetchPostData();
   }, [slug]);
 
-  if (!slug || !postInfo.title) return <PageNotFound></PageNotFound>;
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [slug]);
+
+  if (!slug) return <PageNotFound></PageNotFound>;
   if (!postInfo.title) return null;
 
   return (
@@ -146,15 +149,10 @@ const PostDetailsPage = () => {
             <div className="entry-content">{parse(postInfo.content || "")}</div>
             <AuthorBox userId={postInfo.user?.id}></AuthorBox>
           </div>
-          <div className="post-related">
-            <Heading>Bài viết liên quan</Heading>
-            <div className="grid-layout grid-layout--primary">
-              <PostItem></PostItem>
-              <PostItem></PostItem>
-              <PostItem></PostItem>
-              <PostItem></PostItem>
-            </div>
-          </div>
+          <PosrRelated
+            categoryId={postInfo.categoryId}
+            postId={postInfo.id}
+          ></PosrRelated>
         </div>
       </Layout>
     </PostDetailsPageStyles>
