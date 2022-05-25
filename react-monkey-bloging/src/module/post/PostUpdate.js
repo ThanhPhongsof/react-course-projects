@@ -120,6 +120,7 @@ const PostUpdate = () => {
       const docRef = doc(db, "posts", postId);
       await updateDoc(docRef, {
         ...values,
+        status: Number(values.status),
         content,
         image,
       });

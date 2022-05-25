@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PageNotFound from "./PageNotFound";
 import parse from "html-react-parser";
+import AuthorBox from "components/author/AuthorBox";
 
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
@@ -52,9 +53,12 @@ const PostDetailsPageStyles = styled.div`
       height: 200px;
       flex-shrink: 0;
       border-radius: inherit;
-      img {
-        border-radius: inherit;
-      }
+    }
+    &-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
     }
     &-content {
       flex: 1;
@@ -140,24 +144,7 @@ const PostDetailsPage = () => {
           </div>
           <div className="post-content">
             <div className="entry-content">{parse(postInfo.content || "")}</div>
-            <div className="author">
-              <div className="author-image">
-                <img
-                  src={postInfo.user?.avartar}
-                  alt={postInfo.user?.username}
-                />
-              </div>
-              <div className="author-content">
-                <h3 className="author-name">{postInfo.user?.fullname}</h3>
-                <p className="author-desc">
-                  {postInfo.user?.description}
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Dignissimos non animi porro voluptates quibusdam optio nulla
-                  quis nihil ipsa error delectus temporibus nesciunt, nam
-                  officiis adipisci suscipit voluptate eum totam!
-                </p>
-              </div>
-            </div>
+            <AuthorBox userId={postInfo.user?.id}></AuthorBox>
           </div>
           <div className="post-related">
             <Heading>Bài viết liên quan</Heading>

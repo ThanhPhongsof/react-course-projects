@@ -24,6 +24,7 @@ import {
 import { toast } from "react-toastify";
 import slugify from "slugify";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Textarea } from "components/textarea";
 
 const UserUpdateStyles = styled.div`
   .form-img {
@@ -220,6 +221,12 @@ const UserUpdate = () => {
                 User
               </Radio>
             </FieldCheckboxes>
+          </Field>
+        </div>
+        <div className="form-layout">
+          <Field>
+            <Label>Description</Label>
+            <Textarea name="description" control={control}></Textarea>
           </Field>
         </div>
         <Button

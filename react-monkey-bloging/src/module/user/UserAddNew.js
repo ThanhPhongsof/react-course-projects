@@ -16,6 +16,7 @@ import { auth, db } from "firebase-app/firebase-config";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import slugify from "slugify";
+import { Textarea } from "components/textarea";
 
 const UserAddNewStyles = styled.div`
   .form-img {
@@ -206,6 +207,12 @@ const UserAddNew = () => {
                 User
               </Radio>
             </FieldCheckboxes>
+          </Field>
+        </div>
+        <div className="form-layout">
+          <Field>
+            <Label>Description</Label>
+            <Textarea name="description" control={control}></Textarea>
           </Field>
         </div>
         <Button
