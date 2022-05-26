@@ -47,7 +47,7 @@ const PostItem = ({ data }) => {
         {data.title}
       </PostTitle>
       <PostMeta
-        to={data.user?.username}
+        to={data.user?.slug}
         authorName={data.user.username}
         date={new Date(data.createdAt?.seconds * 1000).toLocaleDateString(
           "vi-VI"

@@ -1,3 +1,4 @@
+import { LoadingSkeleton } from "components/loading";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -31,6 +32,14 @@ const PostTitle = ({ children, className = "", size = "normal", to = "/" }) => {
   return (
     <PostTitleStyles size={size} className={`post-title ${className}`}>
       <Link to={`/${to}`}>{children}</Link>
+    </PostTitleStyles>
+  );
+};
+
+export const PostTitleSkelton = (size = "normal") => {
+  return (
+    <PostTitleStyles size={size} className={`post-title`}>
+      <LoadingSkeleton width="50%" height="30px"></LoadingSkeleton>
     </PostTitleStyles>
   );
 };

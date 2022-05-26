@@ -1,5 +1,6 @@
 import React from "react";
 import { useController } from "react-hook-form";
+import PropTypes from "prop-types";
 
 const Checkbox = ({ checked, children, control, name, ...rest }) => {
   const { field } = useController({ control, name, defaultValue: "" });
@@ -37,6 +38,13 @@ const Checkbox = ({ checked, children, control, name, ...rest }) => {
       </div>
     </label>
   );
+};
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  children: PropTypes.any,
+  control: PropTypes.any.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Checkbox;

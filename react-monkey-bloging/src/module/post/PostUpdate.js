@@ -30,6 +30,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import slugify from "slugify";
 import { useAuth } from "contexts/auth-context";
+import { withErrorBoundary } from "react-error-boundary";
 
 const PostUpdateStyles = styled.div``;
 
@@ -147,6 +148,8 @@ const PostUpdate = () => {
         ...values,
         categoryId: cloneValues.category.id,
         userId: cloneValues.user.id,
+        user: cloneValues.user,
+        category: cloneValues.category,
         content,
         image,
       });
@@ -321,4 +324,12 @@ const PostUpdate = () => {
   );
 };
 
-export default PostUpdate;
+const FallbackComponent = () => {
+  return (
+    <p className="text-red-400 bg-red-50">
+      Something went wrong with this component . PostUpdate
+    </p>
+  );
+};
+
+export default withErrorBoundary(PostUpdate, { FallbackComponent });

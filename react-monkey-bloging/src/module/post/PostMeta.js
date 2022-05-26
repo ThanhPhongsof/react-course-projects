@@ -1,3 +1,4 @@
+import { LoadingSkeleton } from "components/loading";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -37,6 +38,16 @@ const PostMeta = ({
       <Link to={`/author/${to}`}>
         <span className="post-author">{authorName}</span>
       </Link>
+    </PostMetaStyles>
+  );
+};
+
+export const PostMetaSkeleton = () => {
+  return (
+    <PostMetaStyles className={`post-meta`}>
+      <LoadingSkeleton width="30px" height="10px"></LoadingSkeleton>
+      <span className="post-dot"></span>
+      <LoadingSkeleton width="30px" height="10px"></LoadingSkeleton>
     </PostMetaStyles>
   );
 };

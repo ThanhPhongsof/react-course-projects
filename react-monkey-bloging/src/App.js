@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
+const AuthorPage = React.lazy(() => import("page/AuthorPage"));
+const CategoryPage = React.lazy(() => import("page/CategoryPage"));
 const UserUpdate = React.lazy(() => import("module/user/UserUpdate"));
 const UserProfile = React.lazy(() => import("module/user/UserProfile"));
 const UserManager = React.lazy(() => import("module/user/UserManage"));
@@ -40,6 +42,14 @@ const App = () => {
             <Route
               path="/:slug"
               element={<PostDetailsPage></PostDetailsPage>}
+            ></Route>
+            <Route
+              path="/author/:slug"
+              element={<AuthorPage></AuthorPage>}
+            ></Route>
+            <Route
+              path="/category/:slug"
+              element={<CategoryPage></CategoryPage>}
             ></Route>
             <Route element={<DashboardLayout></DashboardLayout>}>
               <Route

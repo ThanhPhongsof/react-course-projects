@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const LabelStyles = styled.label`
   color: ${(props) => props.theme.gray4b};
@@ -14,6 +15,11 @@ const Label = ({ htmlFor = "", children, ...props }) => {
       {children}
     </LabelStyles>
   );
+};
+
+Label.propTypes = {
+  htmlFor: PropTypes.string,
+  children: PropTypes.any,
 };
 
 export default Label;

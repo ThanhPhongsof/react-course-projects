@@ -58,7 +58,7 @@ const UserAddNew = () => {
         password: values.password,
         username: slugify(values.username || values.fullname, {
           lower: true,
-          replacement: " ",
+          replacement: "",
           trim: true,
         }),
         avartar: image,

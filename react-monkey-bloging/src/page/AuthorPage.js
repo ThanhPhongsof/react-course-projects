@@ -1,31 +1,21 @@
-import Heading from "components/layout/Heading";
+import Layout from "components/layout/Layout";
 import { db } from "firebase-app/firebase-config";
-import {
-  collection,
-  limit,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import PostFeatureItem, {
   PostFeatureItemSkeleton,
 } from "module/post/PostFeatureItem";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { withErrorBoundary } from "react-error-boundary";
+import { useParams } from "react-router-dom";
 import { v4 } from "uuid";
 
-const HomeFeatureStyles = styled.div``;
-
-const HomeFeature = () => {
+const AuthorPage = () => {
+  const { slug } = useParams();
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const colRel = collection(db, "posts");
-    const queries = query(
-      colRel,
-      where("status", "==", 1),
-      where("hot", "==", true),
-      limit(4)
-    );
+    const queries = query(colRel, where("user.slug", "==", slug));
     onSnapshot(queries, (snapshot) => {
       const results = [];
       snapshot.forEach((doc) => {
@@ -37,11 +27,11 @@ const HomeFeature = () => {
       setPosts(results);
     });
   }, []);
+  if (!slug) return <PageNotFound></PageNotFound>;
   const isLoading = !posts;
   return (
-    <HomeFeatureStyles className="home-block">
+    <Layout>
       <div className="container">
-        <Heading>Featured posts</Heading>
         {isLoading && (
           <div className="grid-layout">
             {new Array(3).fill(0).map(() => (
@@ -57,8 +47,8 @@ const HomeFeature = () => {
           </div>
         )}
       </div>
-    </HomeFeatureStyles>
+    </Layout>
   );
 };
 
-export default HomeFeature;
+export default AuthorPage;

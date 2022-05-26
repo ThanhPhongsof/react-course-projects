@@ -26,6 +26,7 @@ import { db } from "firebase-app/firebase-config";
 import { toast } from "react-toastify";
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import { useAuth } from "contexts/auth-context";
+import { withErrorBoundary } from "react-error-boundary";
 
 const PostAddNewStyles = styled.div``;
 
@@ -252,4 +253,12 @@ const PostAddNew = () => {
   );
 };
 
-export default PostAddNew;
+const FallbackComponent = () => {
+  return (
+    <p className="text-red-400 bg-red-50">
+      Something went wrong with this component . PostAddNew
+    </p>
+  );
+};
+
+export default withErrorBoundary(PostAddNew, { FallbackComponent });

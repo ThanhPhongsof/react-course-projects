@@ -82,8 +82,19 @@ const UserUpdate = () => {
     if (!isValid) return;
     try {
       const colRef = doc(db, "users", userId);
+
       await updateDoc(colRef, {
         ...values,
+        username: slugify(values.username || values.fullname, {
+          lower: true,
+          replacement: " ",
+          trim: true,
+        }),
+        slug: slugify(values.username || values.fullname, {
+          lower: true,
+          replacement: "-",
+          trim: true,
+        }),
         avartar: image,
       });
       toast.success(`Update user successfully!`);

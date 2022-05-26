@@ -1,24 +1,39 @@
-import PostCategory from "./PostCategory";
+import PostCategory, { PostCategorySkeleton } from "./PostCategory";
 import PostImage from "./PostImage";
-import PostMeta from "./PostMeta";
-import PostTitle from "./PostTitle";
+import PostMeta, { PostMetaSkeleton } from "./PostMeta";
+import PostTitle, { PostTitleSkelton } from "./PostTitle";
 import React from "react";
 import slugify from "slugify";
 import styled from "styled-components";
+import { LoadingSkeleton } from "components/loading";
 
 const PostFeatureItemStyles = styled.div`
   width: 100%;
   border-radius: 16px;
   position: relative;
   height: 169px;
-  &:hover {
-    transform: scale(1.075);
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  z-index: 2;
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+    opacity: 0.25;
+  }
+  &:hover .post-image {
+    transform: scale(1.2);
+  }
+  &:hover:before {
+    opacity: 0;
   }
   .post {
     &-image {
       width: 100%;
       height: 100%;
       border-radius: 16px;
+      transition: transform 0.2s ease-in-out;
     }
     &-overlay {
       position: absolute;
@@ -72,7 +87,7 @@ const PostFeatureItem = ({ data }) => {
             <PostCategory to={category.slug}>{category?.name}</PostCategory>
           )}
           <PostMeta
-            to={`/${user?.username}`}
+            to={user?.slug}
             date={formatDate}
             authorName={user?.fullname}
           ></PostMeta>
@@ -80,6 +95,31 @@ const PostFeatureItem = ({ data }) => {
         <PostTitle to={data.slug} size="big">
           {data.title}
         </PostTitle>
+      </div>
+    </PostFeatureItemStyles>
+  );
+};
+
+export const PostFeatureItemSkeleton = () => {
+  return (
+    <PostFeatureItemStyles className="h-full text-white rounded-lg select-none">
+      <LoadingSkeleton
+        width="100%"
+        height="250px"
+        radius="16px"
+        className="mb-5"
+      ></LoadingSkeleton>
+      <div className="post-overlay"></div>
+      <div className="post-content">
+        <div className="post-top">
+          <div>
+            <LoadingSkeleton width="50px" height="10px"></LoadingSkeleton>
+          </div>
+          <div>
+            <PostMetaSkeleton></PostMetaSkeleton>
+          </div>
+        </div>
+        <PostTitleSkelton size="big"></PostTitleSkelton>
       </div>
     </PostFeatureItemStyles>
   );
