@@ -1,9 +1,8 @@
 import { Button } from "components/button";
-import { Dropdown } from "components/dropdown";
 import { IconDelete, IconEdit, IconView } from "components/icon";
 import { LabelStatus } from "components/label";
-import { Pagination } from "components/pagination";
 import { Table } from "components/table";
+import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import {
   collection,
@@ -22,7 +21,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { limitperPage, postStatus } from "utils/constants";
+import { limitperPage, postStatus, userRole } from "utils/constants";
 
 const PostManageStyles = styled.div``;
 
@@ -131,7 +130,8 @@ const PostManage = () => {
         break;
     }
   };
-
+  const { userInfo } = useAuth();
+  if (userInfo.role !== userRole.ADMIN) return null;
   return (
     <PostManageStyles>
       <DashboardHeading

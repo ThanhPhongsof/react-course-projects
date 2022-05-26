@@ -1,11 +1,12 @@
 import { Button } from "components/button";
 import { InputSearch } from "components/input";
+import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import { collection, limit, onSnapshot, query } from "firebase/firestore";
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { limitperPage } from "utils/constants";
+import { limitperPage, userRole } from "utils/constants";
 import UserTable from "./UserTable";
 
 const UserManageStyles = styled.div`
@@ -24,6 +25,9 @@ const UserManageStyles = styled.div`
 
 const UserManage = () => {
   const searchUserHandler = () => {};
+
+  const { userInfo } = useAuth();
+  if (userInfo.role !== userRole.ADMIN) return null;
 
   return (
     <UserManageStyles>

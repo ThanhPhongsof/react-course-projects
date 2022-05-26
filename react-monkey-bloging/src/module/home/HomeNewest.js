@@ -2,8 +2,16 @@ import Heading from "components/layout/Heading";
 import PostItem from "module/post/PostItem";
 import PostNewestItem from "module/post/PostNewestItem";
 import PostNewestLarge from "module/post/PostNewestLarge";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { db } from "firebase-app/firebase-config";
+import {
+  collection,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 const HomeNewestStyles = styled.div`
   .layout {
@@ -29,22 +37,43 @@ const HomeNewestStyles = styled.div`
 `;
 
 const HomeNewest = () => {
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    const colRel = collection(db, "posts");
+    const queries = query(
+      colRel,
+      where("status", "==", 1),
+      where("hot", "==", false),
+      limit(4)
+    );
+    onSnapshot(queries, (snapshot) => {
+      const results = [];
+      snapshot.forEach((doc) => {
+        results.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPosts(results);
+    });
+  }, []);
+
+  if (!posts || posts.length <= 0) return null;
+  const [first, ...other] = posts;
   return (
     <HomeNewestStyles className="home-block">
       <div className="container">
         <Heading>Latest posts</Heading>
         <div className="layout">
-          <PostNewestLarge></PostNewestLarge>
+          <PostNewestLarge data={first}></PostNewestLarge>
           <div className="sidebar">
-            <PostNewestItem></PostNewestItem>
-            <PostNewestItem></PostNewestItem>
-            <PostNewestItem></PostNewestItem>
+            {other?.map((data) => (
+              <PostNewestItem key={data.id} data={data}></PostNewestItem>
+            ))}
           </div>
         </div>
         <div className="grid-layout grid-layout--primary">
-          <PostItem></PostItem>
-          <PostItem></PostItem>
-          <PostItem></PostItem>
           <PostItem></PostItem>
         </div>
       </div>

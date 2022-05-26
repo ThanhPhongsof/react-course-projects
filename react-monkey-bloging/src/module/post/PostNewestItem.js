@@ -47,21 +47,31 @@ const PostNewestItemStyles = styled.div`
   }
 `;
 
-const PostNewestItem = () => {
+const PostNewestItem = ({ data }) => {
+  const date = data?.createdAt
+    ? new Date(data?.createdAt?.seconds * 1000)
+    : new Date();
+  const formatDate = new Date(date).toLocaleDateString("vi-VI");
+  const { category, user } = data;
+  if (!data) return null;
   return (
     <PostNewestItemStyles>
       <PostImage
         className="post-image"
-        url="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        url={data.image}
         alt="pexels"
-        to="/"
+        to={data.slug}
       ></PostImage>
       <div className="post-content">
-        <PostCategory type="secondary">Knowledge</PostCategory>
-        <PostTitle className="post-title">
-          The complete guide to learn new languages for beginners
+        <PostCategory to={category?.slug}>{category?.name}</PostCategory>
+        <PostTitle to={data.slug} size="big">
+          {data.title}
         </PostTitle>
-        <PostMeta></PostMeta>
+        <PostMeta
+          to={`/${user?.username}`}
+          date={formatDate}
+          authorName={user?.fullname}
+        ></PostMeta>
       </div>
     </PostNewestItemStyles>
   );

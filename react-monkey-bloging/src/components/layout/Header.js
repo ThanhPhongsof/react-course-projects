@@ -135,14 +135,16 @@ const Header = () => {
               </Button>
             </div>
           ) : (
-            <Button
-              type="button"
-              height="56px"
-              className="header-button"
-              to="/sign-in"
-            >
-              Login
-            </Button>
+            <div className="flex ml-auto">
+              <Button
+                type="button"
+                height="56px"
+                className="header-button"
+                to="/sign-in"
+              >
+                Login
+              </Button>
+            </div>
           )}
         </div>
       </div>

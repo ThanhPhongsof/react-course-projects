@@ -17,11 +17,12 @@ import {
 import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { categoryStatus, limitperPage } from "utils/constants";
+import { categoryStatus, limitperPage, userRole } from "utils/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { InputSearch } from "components/input";
+import { useAuth } from "contexts/auth-context";
 
 const CategoryManageStyles = styled.div`
   .search-category {
@@ -121,6 +122,9 @@ const CategoryManage = () => {
   const searchCategoryHandler = debounce((e) => {
     setFilter(e.target.value);
   }, 500);
+
+  const { userInfo } = useAuth();
+  if (userInfo.role !== userRole.ADMIN) return null;
 
   return (
     <CategoryManageStyles>
